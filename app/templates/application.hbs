@@ -1,5 +1,7 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}
+<Game as |game|>
+  <Board @game={{game}} as |space piece|>
+    {{#if piece}}
+      <Piece @piece={{piece}} />
+    {{/if}}
+  </Board>  
+</Game>

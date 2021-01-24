@@ -1,0 +1,17 @@
+<div class="piece {{@piece.color}}">
+  <button type="button" {{on "click" this.selectPiece}}>
+    {{#if (eq @piece.type "pawn")}}
+      <Piece::Pawn />
+    {{else if (eq @piece.type "rook")}}
+      <Piece::Rook />
+    {{else if (eq @piece.type "knight")}}
+      <Piece::Knight />
+    {{else if (eq @piece.type "bishop")}}
+      <Piece::Bishop />
+    {{else if (eq @piece.type "queen")}}
+      <Piece::Queen />
+    {{else if (eq @piece.type "king")}}
+      <Piece::King />
+    {{/if}}
+  </button>
+</div>

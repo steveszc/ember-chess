@@ -1,0 +1,27 @@
+<div class="surface">
+  <table class="board">
+    <tr>
+      <td></td>
+      <th scope="col">a</th>
+      <th scope="col">b</th>
+      <th scope="col">c</th>
+      <th scope="col">d</th>
+      <th scope="col">e</th>
+      <th scope="col">f</th>
+      <th scope="col">g</th>
+      <th scope="col">h</th>
+    </tr>
+    {{#each this.rows as |row i|}}
+      {{#if row}}
+        <tr class="row">
+          <th scope="row">{{i}}</th>
+          {{#each-in row as |key piece|}}
+            <td class="space">
+              {{yield (concat key i) piece}}
+            </td>
+          {{/each-in}}
+        </tr>
+      {{/if}}
+    {{/each}}
+  </table>
+</div>
