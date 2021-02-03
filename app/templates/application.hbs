@@ -1,7 +1,9 @@
 <Game as |game|>
-  <Board @game={{game}} as |space piece|>
+  <Board @game={{game}} as |piece board|>
     {{#if piece}}
-      <Piece @piece={{piece}} />
+      <Piece @piece={{piece}} @select={{board.selectPiece}} />
+    {{else if board.selectedPiece}}
+      <button type="button" {{on "click" board.movePiece}}></button>
     {{/if}}
   </Board>  
 </Game>

@@ -1,5 +1,5 @@
 <div class="piece {{@piece.color}}">
-  <button type="button" {{on "click" this.selectPiece}}>
+  <button type="button" {{on "click" (fn @select @piece)}}>
     {{#if (eq @piece.type "pawn")}}
       <Piece::Pawn />
     {{else if (eq @piece.type "rook")}}

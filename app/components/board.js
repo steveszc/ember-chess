@@ -1,5 +1,18 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
+import { A } from "@ember/array";
 
+const letterToIndex = (string) => string.charCodeAt(0) - 97;
+const indexToLetter = (number) => String.fromCharCode(97 + number);
+
+const numberToIndex = (string) => parseInt(string, 10) - 1;
+const indexToNumber = (number) => `${number + 1}`;
+
+const positionToCoord = (position) => ({
+  row: numberToIndex(position[1]),
+  col: letterToIndex(position[0]),
+});
 class Piece {
   constructor({ position, color, type }) {
     this.position = position;
@@ -9,17 +22,7 @@ class Piece {
 }
 
 export default class BoardComponent extends Component {
-  rows = [
-    null,
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-    { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
-  ];
+  grid = A([...Array(8)]).map(() => A([...Array(8)]));
 
   constructor() {
     super(...arguments);
@@ -63,10 +66,25 @@ export default class BoardComponent extends Component {
   }
 
   createPiece({ position, color, type }) {
-    let piece = new Piece({ position, color, type });
-    let column = position[0];
-    let row = parseInt(position[1]);
+    let { row, col } = positionToCoord(position);
 
-    this.rows[row][column] = piece;
+    this.grid[row][col] = new Piece({ position, color, type });
+  }
+
+  @tracked selectedPiece = null;
+
+  @action selectPiece(piece) {
+    this.selectedPiece = piece;
+  }
+
+  @action movePiece(toPosition) {
+    let from = positionToCoord(this.selectedPiece.position);
+    let to = positionToCoord(toPosition);
+    this.selectedPiece.position = toPosition;
+    this.grid[from.row][from.col] = null;
+    this.grid[to.row][to.col] = this.selectedPiece;
+
+    this.grid = this.grid;
+    this.selectedPiece = null;
   }
 }

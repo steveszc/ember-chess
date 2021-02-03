@@ -1,11 +1,16 @@
+body {
+  font-family: sans-serif;
+  color: #9ca3af;
+}
+
 .board {
   margin: 0 auto;
   border-collapse: collapse;
 }
 
 .space {
-  height: calc(100vh / 9);
-  width: calc(100vh / 9);
+  height: calc(100vmin / 9);
+  width: calc(100vmin / 9);
 }
 
 th[scope="row"] {
@@ -66,6 +71,6 @@ th[scope="col"] {
 .piece svg {
   width: 100%;
   height: 100%;
-  max-height: calc(100vh / 16);
-  max-width: calc(100vh / 16);
+  max-height: calc(100vmin / 16);
+  max-width: calc(100vmin / 16);
 }

@@ -11,17 +11,22 @@
       <th scope="col">g</th>
       <th scope="col">h</th>
     </tr>
-    {{#each this.rows as |row i|}}
-      {{#if row}}
-        <tr class="row">
-          <th scope="row">{{i}}</th>
-          {{#each-in row as |key piece|}}
-            <td class="space">
-              {{yield (concat key i) piece}}
-            </td>
-          {{/each-in}}
-        </tr>
-      {{/if}}
+    {{#each this.grid as |row i|}}
+      <tr class="row">
+        <th scope="row">{{add i 1}}</th>
+        {{#each row as |piece j|}}
+          <td class="space">
+            {{yield
+              piece
+              (hash
+                selectPiece=this.selectPiece
+                selectedPiece=this.selectedPiece
+                movePiece=(fn this.movePiece (get-position-for-index i j))
+              )
+            }}
+          </td>
+        {{/each}}
+      </tr>
     {{/each}}
   </table>
 </div>
