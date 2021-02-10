@@ -1,1 +1,7 @@
-{{yield}}
+<Board as |piece board|>
+  {{#if piece}}
+    <Piece @piece={{piece}} @select={{board.selectPiece}} />
+  {{else if board.selectedPiece}}
+    <EmptySpace @move={{board.movePiece}} />
+  {{/if}}
+</Board>  

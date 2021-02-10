@@ -13,6 +13,14 @@ body {
   width: calc(100vmin / 9);
 }
 
+.empty-space {
+  height: 80%;
+  width: 80%;
+  margin: 10%;
+  border: 1px dotted #9ca3af;
+  background: transparent;
+}
+
 th[scope="row"] {
   border-right: 6px solid #f3f4f6;
 }

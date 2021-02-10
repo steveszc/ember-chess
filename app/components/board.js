@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { TrackedArray } from "tracked-built-ins";
 import { action } from "@ember/object";
-import { A } from "@ember/array";
 
 const letterToIndex = (string) => string.charCodeAt(0) - 97;
 const indexToLetter = (number) => String.fromCharCode(97 + number);
@@ -22,7 +22,9 @@ class Piece {
 }
 
 export default class BoardComponent extends Component {
-  grid = A([...Array(8)]).map(() => A([...Array(8)]));
+  grid = new TrackedArray([...Array(8)]).map(
+    () => new TrackedArray([...Array(8)])
+  );
 
   constructor() {
     super(...arguments);
@@ -84,7 +86,6 @@ export default class BoardComponent extends Component {
     this.grid[from.row][from.col] = null;
     this.grid[to.row][to.col] = this.selectedPiece;
 
-    this.grid = this.grid;
     this.selectedPiece = null;
   }
 }
