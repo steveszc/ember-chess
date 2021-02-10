@@ -1,19 +1,14 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import move from "ember-animated/motions/move";
 import { action } from "@ember/object";
+import Board from "ember-chess/lib/board";
 
 export default class GameComponent extends Component {
+  board = new Board();
+
   @tracked turn = 1;
 
   @action incrementTurn() {
     this.turn++;
-  }
-
-  *transition({ receivedSprites }) {
-    receivedSprites.forEach((sprite) => {
-      sprite.applyStyles({ "z-index": "1" });
-      move(sprite);
-    });
   }
 }

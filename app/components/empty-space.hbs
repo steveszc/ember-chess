@@ -1,8 +1,8 @@
-{{#if this.canMoveToSpace}}
-  <button 
+{{#if @canMoveHere}}
+  <button
     type="button"
     class="empty-space"
-    {{on "click" @move}}
+    {{on "click" @moveHere}}
     {{on "drop" this.drop}}
     {{on "dragover" this.dragOver}}
   >

@@ -1,22 +1,9 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
-import { tracked } from "@glimmer/tracking";
 
 export default class PieceComponent extends Component {
-  get isMyTurn() {
-    if (this.args.piece.color === "black" && !(this.args.turn % 2)) return true;
-    if (this.args.piece.color === "white" && this.args.turn % 2) return true;
-  }
-  get isNotMyTurn() {
-    return !this.isMyTurn;
-  }
-
   get canBeTaken() {
-    if (this.args.selectedPiece && this.isNotMyTurn) {
-      return this.args.selectedPiece.availablePositions.includes(
-        this.args.piece.position
-      );
-    }
+    return !this.args.isMyTurn && this.args.canMoveHere;
   }
 
   @action dragStart(dragEvent) {
@@ -34,10 +21,11 @@ export default class PieceComponent extends Component {
     dragEvent.dataTransfer.setDragImage(img, 25, 25);
 
     this.isDragging = true;
-    this.args.select(this.args.piece);
+    this.args.select();
   }
   @action dragEnd(dragEvent) {
-    document.querySelector(".drag-image").remove();
+    dragEvent.preventDefault();
+    document.querySelector(".drag-image")?.remove();
   }
   @action dragOver(dragEvent) {
     dragEvent.preventDefault();
@@ -45,7 +33,7 @@ export default class PieceComponent extends Component {
   }
   @action drop(dragEvent) {
     dragEvent.preventDefault();
-    if (this.canBeTaken) this.args.move();
-    document.querySelector(".drag-image").remove();
+    if (this.canBeTaken) this.args.moveHere();
+    document.querySelector(".drag-image")?.remove();
   }
 }

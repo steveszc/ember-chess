@@ -11,21 +11,28 @@
       <th scope="col">g</th>
       <th scope="col">h</th>
     </tr>
-    {{#each this.board.grid as |row i|}}
+    {{#each @board.grid as |row i|}}
       <tr class="row"> 
         <th scope="row">{{add i 1}}</th>
         {{#each row as |piece j|}}
-          <td class="space">
-            {{yield
-              piece
-              (hash
-                selectPiece=this.selectPiece
-                selectedPiece=this.selectedPiece
-                movePiece=(fn this.movePiece (get-position-for-index i j))
-              )
-              (get-position-for-index i j)
-            }}
-          </td>
+          {{#let (get-position-for-index i j) as |position|}}
+            <td class="space">
+              {{#if piece}}
+                <Piece
+                  @piece={{piece}}
+                  @select={{fn this.selectPiece piece}}
+                  @isMyTurn={{eq this.turnColor piece.color}}
+                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                  @moveHere={{fn this.movePiece position}}
+                />
+              {{else}}
+                <EmptySpace
+                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                  @moveHere={{fn this.movePiece position}}
+                />
+              {{/if}}
+            </td>
+          {{/let}}
         {{/each}}
       </tr>
     {{/each}}
