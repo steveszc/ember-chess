@@ -8,17 +8,25 @@ body {
   border-collapse: collapse;
 }
 
+table.board {
+  table-layout: fixed;
+}
+
 .space {
   height: calc(100vmin / 9);
   width: calc(100vmin / 9);
 }
 
 .empty-space {
-  height: 80%;
-  width: 80%;
-  margin: 10%;
-  border: 1px dotted #9ca3af;
+  height: 90%;
+  width: 90%;
+  margin: 5%;
+  border: 1px dashed #9ca3af;
   background: transparent;
+}
+.empty-space:focus {
+  outline: none;
+  border: 3px dashed #6b7280;
 }
 
 th[scope="row"] {
@@ -54,6 +62,14 @@ th[scope="col"] {
   align-items: center;
   justify-content: space-around;
 }
+
+/* .piece.can-be-taken {
+  background-color: orange;
+}
+
+.piece.selected {
+  background-color: blue;
+} */
 
 .piece button {
   background: none;

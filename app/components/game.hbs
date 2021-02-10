@@ -1,7 +1,24 @@
-<Board as |piece board|>
+<Board
+  @turn={{this.turn}}
+  @incrementTurn={{this.incrementTurn}}
+  as |piece board position|
+>
   {{#if piece}}
-    <Piece @piece={{piece}} @select={{board.selectPiece}} />
-  {{else if board.selectedPiece}}
-    <EmptySpace @move={{board.movePiece}} />
+    {{!-- {{#animated-value piece use=transition}}
+      <Piece @piece={{piece}} @select={{board.selectPiece}} />
+    {{/animated-value}} --}}
+    <Piece
+      @piece={{piece}}
+      @move={{board.movePiece}}
+      @select={{board.selectPiece}}
+      @selectedPiece={{board.selectedPiece}}
+      @turn={{this.turn}}
+    />
+  {{else}}
+    <EmptySpace
+      @selectedPiece={{board.selectedPiece}}
+      @move={{board.movePiece}} 
+      @position={{position}}
+    />
   {{/if}}
-</Board>  
+</Board>

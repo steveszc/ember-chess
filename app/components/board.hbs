@@ -12,7 +12,7 @@
       <th scope="col">h</th>
     </tr>
     {{#each this.grid as |row i|}}
-      <tr class="row">
+      <tr class="row"> 
         <th scope="row">{{add i 1}}</th>
         {{#each row as |piece j|}}
           <td class="space">
@@ -23,6 +23,7 @@
                 selectedPiece=this.selectedPiece
                 movePiece=(fn this.movePiece (get-position-for-index i j))
               )
+              (get-position-for-index i j)
             }}
           </td>
         {{/each}}

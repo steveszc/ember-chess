@@ -1,6 +1,8 @@
-<button 
-  type="button"
-  class="empty-space"
-  {{on "click" @move}}
->
-</button>
+{{#if this.canMoveToSpace}}
+  <button 
+    type="button"
+    class="empty-space"
+    {{on "click" @move}}
+  >
+  </button>
+{{/if}}

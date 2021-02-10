@@ -2,6 +2,14 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { TrackedArray } from "tracked-built-ins";
 import { action } from "@ember/object";
+import {
+  Pawn,
+  Rook,
+  Knight,
+  Bishop,
+  Queen,
+  King,
+} from "ember-chess/lib/pieces";
 
 const letterToIndex = (string) => string.charCodeAt(0) - 97;
 const indexToLetter = (number) => String.fromCharCode(97 + number);
@@ -13,13 +21,6 @@ const positionToCoord = (position) => ({
   row: numberToIndex(position[1]),
   col: letterToIndex(position[0]),
 });
-class Piece {
-  constructor({ position, color, type }) {
-    this.position = position;
-    this.color = color;
-    this.type = type;
-  }
-}
 
 export default class BoardComponent extends Component {
   grid = new TrackedArray([...Array(8)]).map(
@@ -32,50 +33,55 @@ export default class BoardComponent extends Component {
   }
 
   startGame() {
-    this.createPiece({ position: "a1", color: "white", type: "rook" });
-    this.createPiece({ position: "b1", color: "white", type: "knight" });
-    this.createPiece({ position: "c1", color: "white", type: "bishop" });
-    this.createPiece({ position: "d1", color: "white", type: "queen" });
-    this.createPiece({ position: "e1", color: "white", type: "king" });
-    this.createPiece({ position: "f1", color: "white", type: "bishop" });
-    this.createPiece({ position: "g1", color: "white", type: "knight" });
-    this.createPiece({ position: "h1", color: "white", type: "rook" });
-    this.createPiece({ position: "a2", color: "white", type: "pawn" });
-    this.createPiece({ position: "b2", color: "white", type: "pawn" });
-    this.createPiece({ position: "c2", color: "white", type: "pawn" });
-    this.createPiece({ position: "d2", color: "white", type: "pawn" });
-    this.createPiece({ position: "e2", color: "white", type: "pawn" });
-    this.createPiece({ position: "f2", color: "white", type: "pawn" });
-    this.createPiece({ position: "g2", color: "white", type: "pawn" });
-    this.createPiece({ position: "h2", color: "white", type: "pawn" });
+    let color = "white";
+    this.createPiece(Rook, { position: "a1", color });
+    this.createPiece(Knight, { position: "b1", color });
+    this.createPiece(Bishop, { position: "c1", color });
+    this.createPiece(Queen, { position: "d1", color });
+    this.createPiece(King, { position: "e1", color });
+    this.createPiece(Bishop, { position: "f1", color });
+    this.createPiece(Knight, { position: "g1", color });
+    this.createPiece(Rook, { position: "h1", color });
+    this.createPiece(Pawn, { position: "a2", color });
+    this.createPiece(Pawn, { position: "b2", color });
+    this.createPiece(Pawn, { position: "c2", color });
+    this.createPiece(Pawn, { position: "d2", color });
+    this.createPiece(Pawn, { position: "e2", color });
+    this.createPiece(Pawn, { position: "f2", color });
+    this.createPiece(Pawn, { position: "g2", color });
+    this.createPiece(Pawn, { position: "h2", color });
 
-    this.createPiece({ position: "a8", color: "black", type: "rook" });
-    this.createPiece({ position: "b8", color: "black", type: "knight" });
-    this.createPiece({ position: "c8", color: "black", type: "bishop" });
-    this.createPiece({ position: "d8", color: "black", type: "queen" });
-    this.createPiece({ position: "e8", color: "black", type: "king" });
-    this.createPiece({ position: "f8", color: "black", type: "bishop" });
-    this.createPiece({ position: "g8", color: "black", type: "knight" });
-    this.createPiece({ position: "h8", color: "black", type: "rook" });
-    this.createPiece({ position: "a7", color: "black", type: "pawn" });
-    this.createPiece({ position: "b7", color: "black", type: "pawn" });
-    this.createPiece({ position: "c7", color: "black", type: "pawn" });
-    this.createPiece({ position: "d7", color: "black", type: "pawn" });
-    this.createPiece({ position: "e7", color: "black", type: "pawn" });
-    this.createPiece({ position: "f7", color: "black", type: "pawn" });
-    this.createPiece({ position: "g7", color: "black", type: "pawn" });
-    this.createPiece({ position: "h7", color: "black", type: "pawn" });
+    color = "black";
+    this.createPiece(Rook, { position: "a8", color });
+    this.createPiece(Knight, { position: "b8", color });
+    this.createPiece(Bishop, { position: "c8", color });
+    this.createPiece(Queen, { position: "d8", color });
+    this.createPiece(King, { position: "e8", color });
+    this.createPiece(Bishop, { position: "f8", color });
+    this.createPiece(Knight, { position: "g8", color });
+    this.createPiece(Rook, { position: "h8", color });
+    this.createPiece(Pawn, { position: "a7", color });
+    this.createPiece(Pawn, { position: "b7", color });
+    this.createPiece(Pawn, { position: "c7", color });
+    this.createPiece(Pawn, { position: "d7", color });
+    this.createPiece(Pawn, { position: "e7", color });
+    this.createPiece(Pawn, { position: "f7", color });
+    this.createPiece(Pawn, { position: "g7", color });
+    this.createPiece(Pawn, { position: "h7", color });
   }
 
-  createPiece({ position, color, type }) {
+  createPiece(Piece, { position, color }) {
     let { row, col } = positionToCoord(position);
+    let board = this.grid;
 
-    this.grid[row][col] = new Piece({ position, color, type });
+    this.grid[row][col] = new Piece({ position, color, board });
   }
 
   @tracked selectedPiece = null;
 
   @action selectPiece(piece) {
+    if (piece.color === "black" && this.args.turn % 2) return;
+    if (piece.color === "white" && !(this.args.turn % 2)) return;
     this.selectedPiece = piece;
   }
 
@@ -85,7 +91,7 @@ export default class BoardComponent extends Component {
     this.selectedPiece.position = toPosition;
     this.grid[from.row][from.col] = null;
     this.grid[to.row][to.col] = this.selectedPiece;
-
     this.selectedPiece = null;
+    this.args.incrementTurn();
   }
 }
