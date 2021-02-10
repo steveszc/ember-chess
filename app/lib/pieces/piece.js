@@ -43,6 +43,7 @@ export default class Piece {
       return `${col}${parseInt(row, 10) - 1}`;
     }
   }
+
   back(position) {
     let [col, row] = position;
 
@@ -54,6 +55,7 @@ export default class Piece {
       return `${col}${parseInt(row, 10) + 1}`;
     }
   }
+
   right(position) {
     let [col, row] = position;
 
@@ -65,6 +67,7 @@ export default class Piece {
       return `${String.fromCharCode(col.charCodeAt(0) + 1)}${row}`;
     }
   }
+
   left(position) {
     let [col, row] = position;
 
@@ -76,12 +79,16 @@ export default class Piece {
       return `${String.fromCharCode(col.charCodeAt(0) - 1)}${row}`;
     }
   }
+
   isPositionOnBoard(position) {
     let [col, row] = position;
     return "abcdefgh".includes(col) && row >= 1 && row <= 8;
   }
+
   pieceAtPosition(position) {
-    let { row, col } = positionToCoord(position);
-    return this.board[row][col];
+    if (this.isPositionOnBoard(position)) {
+      let { row, col } = positionToCoord(position);
+      return this.board[row][col];
+    }
   }
 }
