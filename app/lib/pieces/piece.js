@@ -1,14 +1,3 @@
-const letterToIndex = (string) => string.charCodeAt(0) - 97;
-const indexToLetter = (number) => String.fromCharCode(97 + number);
-
-const numberToIndex = (string) => parseInt(string, 10) - 1;
-const indexToNumber = (number) => `${number + 1}`;
-
-const positionToCoord = (position) => ({
-  row: numberToIndex(position[1]),
-  col: letterToIndex(position[0]),
-});
-
 export default class Piece {
   constructor({ position, color, board }) {
     this.position = position;
@@ -77,18 +66,6 @@ export default class Piece {
 
     if (this.color === "black") {
       return `${String.fromCharCode(col.charCodeAt(0) - 1)}${row}`;
-    }
-  }
-
-  isPositionOnBoard(position) {
-    let [col, row] = position;
-    return "abcdefgh".includes(col) && row >= 1 && row <= 8;
-  }
-
-  pieceAtPosition(position) {
-    if (this.isPositionOnBoard(position)) {
-      let { row, col } = positionToCoord(position);
-      return this.board[row][col];
     }
   }
 }

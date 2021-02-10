@@ -14,8 +14,8 @@ export default class Pawn extends Piece {
 
   get moveForwardOne() {
     let newPosition = this.forward(this.position);
-    let isOnBoard = this.isPositionOnBoard(newPosition);
-    let pieceAtPosition = this.pieceAtPosition(newPosition);
+    let isOnBoard = this.board.isPositionOnBoard(newPosition);
+    let pieceAtPosition = this.board.pieceAtPosition(newPosition);
     if (isOnBoard && !pieceAtPosition) {
       return newPosition;
     }
@@ -23,8 +23,8 @@ export default class Pawn extends Piece {
 
   get moveForwardTwoOnFirstMove() {
     let newPosition = this.forward(this.forward(this.position));
-    let isOnBoard = this.isPositionOnBoard(newPosition);
-    let pieceInPosition = this.pieceAtPosition(newPosition);
+    let isOnBoard = this.board.isPositionOnBoard(newPosition);
+    let pieceInPosition = this.board.pieceAtPosition(newPosition);
     if (this.isFirstMove && isOnBoard && !pieceInPosition) {
       return newPosition;
     }
@@ -32,8 +32,8 @@ export default class Pawn extends Piece {
 
   get takeDiagonallyLeft() {
     let newPosition = this.forward(this.left(this.position));
-    let isOnBoard = this.isPositionOnBoard(newPosition);
-    let pieceAtPosition = this.pieceAtPosition(newPosition);
+    let isOnBoard = this.board.isPositionOnBoard(newPosition);
+    let pieceAtPosition = this.board.pieceAtPosition(newPosition);
 
     if (isOnBoard && pieceAtPosition && pieceAtPosition.color !== this.color) {
       return newPosition;
@@ -42,8 +42,8 @@ export default class Pawn extends Piece {
 
   get takeDiagonallyRight() {
     let newPosition = this.forward(this.right(this.position));
-    let isOnBoard = this.isPositionOnBoard(newPosition);
-    let pieceAtPosition = this.pieceAtPosition(newPosition);
+    let isOnBoard = this.board.isPositionOnBoard(newPosition);
+    let pieceAtPosition = this.board.pieceAtPosition(newPosition);
 
     if (isOnBoard && pieceAtPosition && pieceAtPosition.color !== this.color) {
       return newPosition;
