@@ -3,6 +3,8 @@
     type="button"
     class="empty-space"
     {{on "click" @move}}
+    {{on "drop" this.drop}}
+    {{on "dragover" this.dragOver}}
   >
   </button>
 {{/if}}

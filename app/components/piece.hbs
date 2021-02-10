@@ -1,8 +1,13 @@
 <div class="piece {{@piece.color}} {{if this.canBeTaken "can-be-taken"}} {{if (eq @selectedPiece @piece) "selected"}}">
-  <button 
+  <button
     type="button"
     disabled={{and this.isNotMyTurn (not this.canBeTaken)}}
+    draggable={{this.isMyTurn}}
     {{on "click" (if this.canBeTaken @move (fn @select @piece))}}
+    {{on "dragstart" this.dragStart}}
+    {{on "dragend" this.dragEnd}}
+    {{on "drop" this.drop}}
+    {{on "dragover" this.dragOver}}
   >
     {{#if (eq @piece.type "pawn")}}
       <Piece::Pawn @color={{@piece.color}} />
