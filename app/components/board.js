@@ -10,7 +10,7 @@ export default class BoardComponent extends Component {
   }
 
   @action selectPiece(piece) {
-    if (piece.color === this.turnColor) {
+    if (piece.color === this.args.turnColor) {
       this.selectedPiece = piece;
     }
   }

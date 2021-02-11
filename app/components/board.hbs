@@ -1,40 +1,51 @@
-<div class="surface">
-  <table class="board">
-    <tr>
-      <td></td>
-      <th scope="col">a</th>
-      <th scope="col">b</th>
-      <th scope="col">c</th>
-      <th scope="col">d</th>
-      <th scope="col">e</th>
-      <th scope="col">f</th>
-      <th scope="col">g</th>
-      <th scope="col">h</th>
+
+<table class="board">
+  <tr>
+    <td></td>
+    <th scope="col" class="key">a</th>
+    <th scope="col" class="key">b</th>
+    <th scope="col" class="key">c</th>
+    <th scope="col" class="key">d</th>
+    <th scope="col" class="key">e</th>
+    <th scope="col" class="key">f</th>
+    <th scope="col" class="key">g</th>
+    <th scope="col" class="key">h</th>
+  </tr>
+  {{#each @board.grid as |row i|}}
+    <tr class="row"> 
+      <th scope="row" class="key">{{add i 1}}</th>
+      {{#each row as |piece j|}}
+        {{#let (get-position-for-index i j) as |position|}}
+          <td class="space">
+            {{#if piece}}
+              <Piece
+                @piece={{piece}}
+                @select={{fn this.selectPiece piece}}
+                @isMyTurn={{eq @turnColor piece.color}}
+                @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                @moveHere={{fn this.movePiece position}}
+              />
+            {{else}}
+              <EmptySpace
+                @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                @moveHere={{fn this.movePiece position}}
+              />
+            {{/if}}
+          </td>
+        {{/let}}
+      {{/each}}
+      <th class="key">{{add i 1}}</th>
     </tr>
-    {{#each @board.grid as |row i|}}
-      <tr class="row"> 
-        <th scope="row">{{add i 1}}</th>
-        {{#each row as |piece j|}}
-          {{#let (get-position-for-index i j) as |position|}}
-            <td class="space">
-              {{#if piece}}
-                <Piece
-                  @piece={{piece}}
-                  @select={{fn this.selectPiece piece}}
-                  @isMyTurn={{eq this.turnColor piece.color}}
-                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
-                  @moveHere={{fn this.movePiece position}}
-                />
-              {{else}}
-                <EmptySpace
-                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
-                  @moveHere={{fn this.movePiece position}}
-                />
-              {{/if}}
-            </td>
-          {{/let}}
-        {{/each}}
-      </tr>
-    {{/each}}
-  </table>
-</div>
+  {{/each}}
+  <tr>
+    <td></td>
+    <th class="key">a</th>
+    <th class="key">b</th>
+    <th class="key">c</th>
+    <th class="key">d</th>
+    <th class="key">e</th>
+    <th class="key">f</th>
+    <th class="key">g</th>
+    <th class="key">h</th>
+  </tr>
+</table>

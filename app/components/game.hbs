@@ -1,5 +1,26 @@
-<Board
-  @board={{this.board}}
-  @turn={{this.turn}}
-  @incrementTurn={{this.incrementTurn}}
+<div class="
+  surface
+  {{this.turnColor}}
+  turn-{{this.turn}}
+  {{if this.isShowingKey "show-key"}}
+  {{if this.isRotate "rotate"}}
+  {{if this.isShowingGuide "show-guide"}}
+  {{if this.isShowingLog "show-log"}}
+">
+  <Board
+    @board={{this.board}}
+    @turnColor={{this.turnColor}}
+    @incrementTurn={{this.incrementTurn}}
+  />
+</div>
+
+<Settings
+  @isShowingKey={{this.isShowingKey}}
+  @toggleKey={{this.toggleKey}}
+  @isRotate={{this.isRotate}}
+  @toggleRotate={{this.toggleRotate}}
+  @isShowingGuide={{this.isShowingGuide}}
+  @toggleGuide={{this.toggleGuide}}
+  @isShowingLog={{this.isShowingLog}}
+  @toggleLog={{this.toggleLog}}
 />

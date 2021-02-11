@@ -1,0 +1,12 @@
+<button type="button" class="settings-button" {{on "click" this.toggle}}>
+  <GearIcon />
+</button>
+
+{{#if this.isShowing}}
+  <div class="settings-modal">
+    <label><input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}> Show key</label>
+    <label><input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}> Show move guide</label>
+    <label><input type="checkbox" checked={{@isShowingLog}} {{on "change" @toggleLog}}> Show game log</label>
+    <label><input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}> Rotate board every turn</label>
+  </div>
+{{/if}}

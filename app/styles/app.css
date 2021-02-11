@@ -6,6 +6,8 @@ body {
 body {
   font-family: sans-serif;
   color: #9ca3af;
+  margin: 0;
+  padding: 0;
 }
 
 .surface {
@@ -13,6 +15,39 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  transition: background 0.75s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.surface.turn-1 {
+  animation-name: fade-in;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+}
+
+.surface.white {
+  background: rgba(0, 0, 0, 0);
+}
+
+.surface.black {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.surface.rotate.white,
+.surface.rotate.white .piece,
+.surface.rotate.white .key {
+  transform: rotate(180deg);
 }
 
 .board {
@@ -24,6 +59,14 @@ table.board {
   table-layout: fixed;
 }
 
+.key {
+  visibility: hidden;
+}
+
+.show-key .key {
+  visibility: visible;
+}
+
 .space {
   height: calc(100vmin / 9);
   width: calc(100vmin / 9);
@@ -33,12 +76,17 @@ table.board {
   height: 90%;
   width: 90%;
   margin: 5%;
-  border: 1px dashed #9ca3af;
   background: transparent;
+  border: none;
+}
+.show-guide .empty-space {
+  border: 2px dashed cornflowerblue;
 }
 .empty-space:focus {
   outline: none;
-  border: 3px dashed #6b7280;
+}
+.show-guide .empty-space:focus {
+  border: 4px dashed cornflowerblue;
 }
 
 th[scope="row"] {
@@ -75,14 +123,6 @@ th[scope="col"] {
   justify-content: space-around;
 }
 
-/* .piece.can-be-taken {
-  background-color: orange;
-}
-
-.piece.selected {
-  background-color: blue;
-} */
-
 .piece button {
   background: none;
   border: none;
@@ -91,8 +131,8 @@ th[scope="col"] {
   margin: 5%;
 }
 
-.piece.can-be-taken button {
-  border: 1px dashed #9ca3af;
+.show-guide .piece.can-be-taken button {
+  border: 2px dashed cornflowerblue;
 }
 
 .piece button:focus {
@@ -111,5 +151,40 @@ th[scope="col"] {
 }
 
 .piece.black svg {
+  color: #6b7280;
+}
+
+.settings-button {
+  color: #6b7280;
+  height: 2rem;
+  width: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 0;
+  background: none;
+}
+
+.settings-button:focus {
+  outline: none;
+  color: cornflowerblue;
+}
+
+.settings-modal {
+  position: fixed;
+  top: 2rem;
+  left: 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.settings-modal label {
+  display: block;
   color: #6b7280;
 }
