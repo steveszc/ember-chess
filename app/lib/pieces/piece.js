@@ -5,6 +5,8 @@ export default class Piece {
     this.board = board;
   }
 
+  hasRecursiveMoves = false;
+  moves = [];
   #positions = [];
   #position = null;
 
@@ -73,7 +75,7 @@ export default class Piece {
     let positions = [];
     let position = this.position;
 
-    while (true) {
+    do {
       let newPosition = move(position);
       let isOnBoard = this.board.isPositionOnBoard(newPosition);
       let pieceAtPosition = this.board.pieceAtPosition(newPosition);
@@ -87,7 +89,11 @@ export default class Piece {
       }
 
       if (!isOnBoard || pieceAtPosition) break;
-    }
+    } while (this.hasRecursiveMoves);
     return positions;
+  }
+
+  get availablePositions() {
+    return this.moves.map((move) => this.getPositions(move)).flat();
   }
 }

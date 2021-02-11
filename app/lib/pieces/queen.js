@@ -2,17 +2,16 @@ import Piece from "ember-chess/lib/pieces/piece";
 
 export default class Queen extends Piece {
   type = "queen";
+  hasRecursiveMoves = true;
 
-  get availablePositions() {
-    return [
-      ...this.getPositions((position) => this.forward(position)),
-      ...this.getPositions((position) => this.right(position)),
-      ...this.getPositions((position) => this.left(position)),
-      ...this.getPositions((position) => this.back(position)),
-      ...this.getPositions((position) => this.forward(this.left(position))),
-      ...this.getPositions((position) => this.forward(this.right(position))),
-      ...this.getPositions((position) => this.back(this.left(position))),
-      ...this.getPositions((position) => this.back(this.right(position))),
-    ].filter(Boolean);
-  }
+  moves = [
+    (position) => this.forward(position),
+    (position) => this.right(position),
+    (position) => this.left(position),
+    (position) => this.back(position),
+    (position) => this.forward(this.left(position)),
+    (position) => this.forward(this.right(position)),
+    (position) => this.back(this.left(position)),
+    (position) => this.back(this.right(position)),
+  ];
 }

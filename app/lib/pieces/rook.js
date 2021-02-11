@@ -2,13 +2,12 @@ import Piece from "ember-chess/lib/pieces/piece";
 
 export default class Rook extends Piece {
   type = "rook";
+  hasRecursiveMoves = true;
 
-  get availablePositions() {
-    return [
-      ...this.getPositions((position) => this.forward(position)),
-      ...this.getPositions((position) => this.right(position)),
-      ...this.getPositions((position) => this.back(position)),
-      ...this.getPositions((position) => this.left(position)),
-    ].filter(Boolean);
-  }
+  moves = [
+    (position) => this.forward(position),
+    (position) => this.right(position),
+    (position) => this.back(position),
+    (position) => this.left(position),
+  ];
 }
