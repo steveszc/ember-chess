@@ -68,4 +68,26 @@ export default class Piece {
       return `${String.fromCharCode(col.charCodeAt(0) - 1)}${row}`;
     }
   }
+
+  getPositions(move) {
+    let positions = [];
+    let position = this.position;
+
+    while (true) {
+      let newPosition = move(position);
+      let isOnBoard = this.board.isPositionOnBoard(newPosition);
+      let pieceAtPosition = this.board.pieceAtPosition(newPosition);
+
+      if (
+        isOnBoard &&
+        (!pieceAtPosition || pieceAtPosition.color !== this.color)
+      ) {
+        positions.push(newPosition);
+        position = newPosition;
+      }
+
+      if (!isOnBoard || pieceAtPosition) break;
+    }
+    return positions;
+  }
 }
