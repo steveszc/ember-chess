@@ -10,22 +10,22 @@
     {{on "dragover" this.dragOver}}
   >
     {{#if (eq @piece.type "pawn")}}
-      <Piece::Pawn @color={{@piece.color}} />
+      <Icon::Pawn @color={{@piece.color}} />
 
     {{else if (eq @piece.type "rook")}}
-      <Piece::Rook @color={{@piece.color}} />
+      <Icon::Rook @color={{@piece.color}} />
 
     {{else if (eq @piece.type "knight")}}
-      <Piece::Knight @color={{@piece.color}} />
+      <Icon::Knight @color={{@piece.color}} />
 
     {{else if (eq @piece.type "bishop")}}
-      <Piece::Bishop @color={{@piece.color}} />
+      <Icon::Bishop @color={{@piece.color}} />
 
     {{else if (eq @piece.type "queen")}}
-      <Piece::Queen @color={{@piece.color}} />
+      <Icon::Queen @color={{@piece.color}} />
 
     {{else if (eq @piece.type "king")}}
-      <Piece::King @color={{@piece.color}} />
+      <Icon::King @color={{@piece.color}} />
 
     {{/if}}
   </button>
