@@ -4,7 +4,7 @@ import { action } from "@ember/object";
 import Board from "ember-chess/lib/board";
 
 export default class GameComponent extends Component {
-  board = new Board();
+  @tracked board = new Board();
 
   @tracked turn = 1;
   @tracked isShowingGuide = false;
@@ -14,6 +14,10 @@ export default class GameComponent extends Component {
 
   get turnColor() {
     return this.turn % 2 ? "white" : "black";
+  }
+
+  @action resetGame() {
+    this.board = new Board();
   }
 
   @action incrementTurn() {
