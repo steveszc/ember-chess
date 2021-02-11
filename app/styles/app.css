@@ -1,6 +1,18 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: sans-serif;
   color: #9ca3af;
+}
+
+.surface {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .board {
@@ -90,8 +102,8 @@ th[scope="col"] {
 .piece svg {
   width: 100%;
   height: 100%;
-  max-height: calc(100vmin / 16);
-  max-width: calc(100vmin / 16);
+  max-height: calc(100vmin / 12);
+  max-width: calc(100vmin / 12);
 }
 
 .piece.white svg {
