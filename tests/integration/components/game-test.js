@@ -6,21 +6,10 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Component | game', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
+  test('it renders a board', async function(assert) {
     await render(hbs`<Game />`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <Game>
-        template block text
-      </Game>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('[data-test="board"]').exists('it renders a board');
+    assert.dom('[data-test="settings-button"]').exists('it renders a settings button');
   });
 });
