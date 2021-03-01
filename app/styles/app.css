@@ -10,6 +10,18 @@ body {
   padding: 0;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .surface {
   height: 100%;
   display: flex;
@@ -79,13 +91,13 @@ table.board {
   background: transparent;
   border: none;
 }
-.show-guide .empty-space {
+.show-guide .empty-space:not([disabled]) {
   border: 2px dashed cornflowerblue;
 }
 .empty-space:focus {
   outline: none;
 }
-.show-guide .empty-space:focus {
+.show-guide .empty-space:not([disabled]):focus {
   border: 4px dashed cornflowerblue;
 }
 
@@ -137,7 +149,11 @@ th[scope="col"] {
 }
 
 .piece button:focus {
-  outline-color: #9ca3af;
+  outline: none;
+}
+.piece button:focus svg,
+.piece.is-selected button svg {
+  color: cornflowerblue;
 }
 
 .piece svg {
@@ -189,6 +205,12 @@ th[scope="col"] {
     0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
+.settings-modal fieldset {
+  border: none;
+  padding: none;
+  margin: none;
+}
+
 .settings-modal label {
   display: block;
   color: #6b7280;
@@ -196,8 +218,10 @@ th[scope="col"] {
 
 .new-game {
   border: 1px solid #d1d5db;
+  border-radius: 4px;
   background: #f9fafb;
   color: #6b7280;
   padding: 0.25rem 0.5rem;
   margin-top: 0.5rem;
+  width: 100%;
 }

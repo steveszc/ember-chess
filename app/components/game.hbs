@@ -1,3 +1,12 @@
+<div class="sr-only" aria-role="alert" aria-live="polite">
+  {{#if this.previousTurnInfo}}
+    <p>
+      {{this.previousTurnInfo.color}} moved their {{this.previousTurnInfo.type}} from {{this.previousTurnInfo.from}} to {{this.previousTurnInfo.to}}.
+    </p>
+  {{/if}}
+  <p>{{this.turnColor}}'s turn.</p>
+</div>
+
 <div class="
   surface
   {{this.turnColor}}

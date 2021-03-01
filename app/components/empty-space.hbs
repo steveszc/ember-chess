@@ -1,10 +1,21 @@
-<button
-  type="button"
-  class="empty-space"
-  disabled={{if @canMoveHere false true}}
-  {{on "click" @moveHere}}
-  {{on "drop" this.drop}}
-  {{on "dragover" this.dragOver}}
-  ...attributes
->
-</button>
+{{#if @canMoveHere}}
+  <button
+    aria-label="move here"
+    type="button"
+    class="empty-space"
+    {{on "click" @moveHere}}
+    {{on "drop" this.drop}}
+    {{on "dragover" this.dragOver}}
+    ...attributes
+  >
+  </button>
+{{else}}
+  <button
+    aria-label="move here"
+    class="empty-space"
+    disabled
+    type="button"
+    ...attributes
+  >
+  </button>
+{{/if}}

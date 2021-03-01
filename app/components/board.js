@@ -16,8 +16,14 @@ export default class BoardComponent extends Component {
   }
 
   @action movePiece(toPosition) {
+    let turn = {
+      color: this.selectedPiece.color,
+      type: this.selectedPiece.type,
+      from: this.selectedPiece.position,
+      to: toPosition
+    }
     this.args.board.move(this.selectedPiece.position, toPosition);
     this.selectedPiece = null;
-    this.args.incrementTurn();
+    this.args.incrementTurn(turn);
   }
 }
