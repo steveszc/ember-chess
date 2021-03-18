@@ -129,6 +129,7 @@ th[scope="col"] {
   height: 90%;
   width: 90%;
   margin: 5%;
+  -webkit-user-drag: element;
 }
 
 .show-guide .piece.can-be-taken button {
