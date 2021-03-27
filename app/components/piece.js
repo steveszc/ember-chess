@@ -14,17 +14,14 @@ export default class PieceComponent extends Component {
     let { top, right, bottom, left } = svg.getBoundingClientRect();
     let color = window.getComputedStyle(svg).getPropertyValue("color");
     svg.style.color = color;
-    let img = new Image(right - left, bottom - top);
+    let width = right - left;
+    let height = bottom - top;
+    let img = new Image(width, height);
     img.src = `data:image/svg+xml;utf8,${svg.outerHTML}`;
     img.style.position = "absolute";
-    img.style.bottom = "-1000px";
-    img.classList.add("drag-image");
-    document.body.appendChild(img);
-    dragEvent.dataTransfer.setDragImage(img, 25, 25);
-  }
-
-  removeDragImage() {
-    document.querySelector(".drag-image")?.remove();
+    img.style.bottom = "-10000px";
+    dragEvent.srcElement.appendChild(img);
+    dragEvent.dataTransfer.setDragImage(img, width/2, height/2);
   }
 
   @action dragStart(dragEvent) {
@@ -35,7 +32,6 @@ export default class PieceComponent extends Component {
 
   @action dragEnd(dragEvent) {
     dragEvent.preventDefault();
-    this.removeDragImage();
     this.isDragging = false;
   }
 
@@ -47,6 +43,5 @@ export default class PieceComponent extends Component {
   @action drop(dragEvent) {
     dragEvent.preventDefault();
     if (this.canBeTaken) this.args.moveHere();
-    this.removeDragImage();
   }
 }

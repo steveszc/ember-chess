@@ -8,7 +8,6 @@ export default class EmptySpaceComponent extends Component {
   }
   @action drop(dragEvent) {
     dragEvent.preventDefault();
-    document.querySelector(".drag-image").remove();
     this.args.moveHere();
   }
 }
