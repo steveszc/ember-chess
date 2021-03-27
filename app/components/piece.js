@@ -1,12 +1,15 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 
 export default class PieceComponent extends Component {
+  @tracked isDragging = false;
+
   get canBeTaken() {
     return !this.args.isMyTurn && this.args.canMoveHere;
   }
 
-  @action dragStart(dragEvent) {
+  createDragImage(dragEvent) {
     let svg = dragEvent.srcElement.querySelector("svg");
     let { top, right, bottom, left } = svg.getBoundingClientRect();
     let color = window.getComputedStyle(svg).getPropertyValue("color");
@@ -17,23 +20,33 @@ export default class PieceComponent extends Component {
     img.style.bottom = "-1000px";
     img.classList.add("drag-image");
     document.body.appendChild(img);
-
     dragEvent.dataTransfer.setDragImage(img, 25, 25);
+  }
 
+  removeDragImage() {
+    document.querySelector(".drag-image")?.remove();
+  }
+
+  @action dragStart(dragEvent) {
+    this.createDragImage(dragEvent)
     this.isDragging = true;
     this.args.select();
   }
+
   @action dragEnd(dragEvent) {
     dragEvent.preventDefault();
-    document.querySelector(".drag-image")?.remove();
+    this.removeDragImage();
+    this.isDragging = false;
   }
+
   @action dragOver(dragEvent) {
     dragEvent.preventDefault();
     dragEvent.dataTransfer.dropEffect = "move";
   }
+
   @action drop(dragEvent) {
     dragEvent.preventDefault();
     if (this.canBeTaken) this.args.moveHere();
-    document.querySelector(".drag-image")?.remove();
+    this.removeDragImage();
   }
 }

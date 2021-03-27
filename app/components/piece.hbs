@@ -1,4 +1,4 @@
-<div class="piece {{@piece.color}} {{if this.canBeTaken "can-be-taken"}}">
+<div class="piece {{@piece.color}} {{if this.canBeTaken "can-be-taken"}} {{if this.isDragging "is-dragging"}}">
   <button
     type="button"
     disabled={{and (not @isMyTurn) (not this.canBeTaken)}}

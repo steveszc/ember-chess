@@ -155,6 +155,10 @@ th[scope="col"] {
   color: #6b7280;
 }
 
+.piece.is-dragging svg {
+  visibility: hidden;
+}
+
 .settings-button {
   color: #6b7280;
   height: 2rem;
