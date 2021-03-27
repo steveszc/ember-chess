@@ -18,31 +18,50 @@ module('Acceptance | game', function(hooks) {
     await triggerEvent(position(to), 'drop', { dataTransfer: {}});
   }
 
-  test('Moving a pawn by clicking an open space', async function(assert) {
-    await visit('');
+  module('with a mouse', function(hooks) {
+    test('Moving a pawn by clicking an open space', async function(assert) {
+      await visit('');
 
-    assert.dom(position('a2')).hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+      assert.dom(position('a2')).hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+
+      assert.dom(position('a3')).hasAttribute('data-test', 'empty-space', 'a3 is empty');
+
+      await clickMove('a2', 'a3');
+
+      assert.dom(position('a2')).hasAttribute('data-test', 'empty-space', 'a2 is empty');
+
+      assert.dom(position('a3')).hasAttribute('data-test', 'pawn', 'a3 is a pawn');
+    });
+  });
+
+  module('with a drag-n-drop', function(hooks) {
+    test('Moving a pawn by dragging to an open space', async function(assert) {
+      await visit('');
+
+      assert.dom(position('a2')).hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+
+      assert.dom(position('a3')).hasAttribute('data-test', 'empty-space', 'a3 is empty');
+
+      await dragMove('a2', 'a3');
+
+      assert.dom(position('a2')).hasAttribute('data-test', 'empty-space', 'a2 is empty');
+
+      assert.dom(position('a3')).hasAttribute('data-test', 'pawn', 'a3 is a pawn');
+    });
+  });
+
+  test('Starting a new game', async function(assert) {
+    await visit('');
 
     assert.dom(position('a3')).hasAttribute('data-test', 'empty-space', 'a3 is empty');
 
     await clickMove('a2', 'a3');
 
-    assert.dom(position('a2')).hasAttribute('data-test', 'empty-space', 'a2 is empty');
-
     assert.dom(position('a3')).hasAttribute('data-test', 'pawn', 'a3 is a pawn');
-  });
 
-  test('Moving a pawn by dragging to an open space', async function(assert) {
-    await visit('');
-
-    assert.dom(position('a2')).hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+    await click('[data-test="settings-button"]');
+    await click('button.new-game');
 
     assert.dom(position('a3')).hasAttribute('data-test', 'empty-space', 'a3 is empty');
-
-    await dragMove('a2', 'a3');
-
-    assert.dom(position('a2')).hasAttribute('data-test', 'empty-space', 'a2 is empty');
-
-    assert.dom(position('a3')).hasAttribute('data-test', 'pawn', 'a3 is a pawn');
   });
 });
