@@ -5,14 +5,14 @@ import { action } from "@ember/object";
 export default class PieceComponent extends Component {
   @tracked isDragging = false;
   @tracked dragImage;
-  @tracked icon;
+  @tracked img;
 
   get canBeTaken() {
     return !this.args.isMyTurn && this.args.canMoveHere;
   }
 
-  createDragImage(dragEvent) {
-    let svg = this.icon;
+  @action createDragImage(svg) {
+    if (this.img) return;
     let { top, right, bottom, left } = svg.getBoundingClientRect();
     let color = window.getComputedStyle(svg).getPropertyValue("color");
     svg.style.color = color;
@@ -22,12 +22,12 @@ export default class PieceComponent extends Component {
     img.src = `data:image/svg+xml;utf8,${svg.outerHTML}`;
     img.style.position = "absolute";
     img.style.bottom = "-10000px";
-    this.dragImage.replaceChildren(img);
-    dragEvent.dataTransfer.setDragImage(img, width/2, height/2);
+    this.img = img;
   }
 
   @action dragStart(dragEvent) {
-    this.createDragImage(dragEvent);
+    this.dragImage.replaceChildren(this.img);
+    dragEvent.dataTransfer.setDragImage(this.img, this.img.width/2, this.img.height/2);
     this.isDragging = true;
     this.args.select();
   }

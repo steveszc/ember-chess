@@ -13,22 +13,22 @@
     data-test={{@piece.type}}
   >
     {{#if (eq @piece.type "pawn")}}
-      <Icon::Pawn @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::Pawn @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "rook")}}
-      <Icon::Rook @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::Rook @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "knight")}}
-      <Icon::Knight @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::Knight @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "bishop")}}
-      <Icon::Bishop @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::Bishop @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "queen")}}
-      <Icon::Queen @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::Queen @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "king")}}
-      <Icon::King @color={{@piece.color}} {{did-insert (set this "icon")}} />
+      <Icon::King @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{/if}}
   </button>
