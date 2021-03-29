@@ -18,7 +18,7 @@ module('Acceptance | game', function(hooks) {
     await triggerEvent(position(to), 'drop', { dataTransfer: {}});
   }
 
-  module('with a mouse', function(hooks) {
+  module('with a mouse', function() {
     test('Moving a pawn by clicking an open space', async function(assert) {
       await visit('');
 
@@ -34,7 +34,7 @@ module('Acceptance | game', function(hooks) {
     });
   });
 
-  module('with a drag-n-drop', function(hooks) {
+  module('with a drag-n-drop', function() {
     test('Moving a pawn by dragging to an open space', async function(assert) {
       await visit('');
 
