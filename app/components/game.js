@@ -1,7 +1,7 @@
-import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
-import { action } from "@ember/object";
-import Board from "ember-chess/lib/board";
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import Board from 'ember-chess/lib/board';
 
 export default class GameComponent extends Component {
   @tracked board = new Board();
@@ -14,7 +14,7 @@ export default class GameComponent extends Component {
   @tracked previousTurnInfo = null;
 
   get turnColor() {
-    return this.turn % 2 ? "white" : "black";
+    return this.turn % 2 ? 'white' : 'black';
   }
 
   @action resetGame() {

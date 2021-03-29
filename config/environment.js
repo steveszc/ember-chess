@@ -24,8 +24,8 @@ module.exports = function (environment) {
 
     'ember-cli-memory-leak-detector': {
       error: true,
-      ignoreClasses: ['Piece'] //Piece seems to be leaking because it is a class prototype, and prototypes are never destroyed
-    }
+      ignoreClasses: ['Piece'], //Piece seems to be leaking because it is a class prototype, and prototypes are never destroyed
+    },
   };
 
   if (environment === 'development') {

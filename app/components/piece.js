@@ -1,6 +1,6 @@
-import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
-import { action } from "@ember/object";
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class PieceComponent extends Component {
   @tracked isDragging = false;
@@ -14,20 +14,24 @@ export default class PieceComponent extends Component {
   @action createDragImage(svg) {
     if (this.img) return;
     let { top, right, bottom, left } = svg.getBoundingClientRect();
-    let color = window.getComputedStyle(svg).getPropertyValue("color");
+    let color = window.getComputedStyle(svg).getPropertyValue('color');
     svg.style.color = color;
     let width = right - left;
     let height = bottom - top;
     let img = new Image(width, height);
     img.src = `data:image/svg+xml;utf8,${svg.outerHTML}`;
-    img.style.position = "absolute";
-    img.style.bottom = "-10000px";
+    img.style.position = 'absolute';
+    img.style.bottom = '-10000px';
     this.img = img;
   }
 
   @action dragStart(dragEvent) {
     this.dragImage.replaceChildren(this.img);
-    dragEvent.dataTransfer.setDragImage(this.img, this.img.width/2, this.img.height/2);
+    dragEvent.dataTransfer.setDragImage(
+      this.img,
+      this.img.width / 2,
+      this.img.height / 2
+    );
     this.isDragging = true;
     this.args.select();
   }
@@ -42,7 +46,7 @@ export default class PieceComponent extends Component {
 
   @action dragOver(dragEvent) {
     dragEvent.preventDefault();
-    dragEvent.dataTransfer.dropEffect = "move";
+    dragEvent.dataTransfer.dropEffect = 'move';
   }
 
   @action drop(dragEvent) {

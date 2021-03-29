@@ -26,11 +26,11 @@ export default class Piece {
   forward(position) {
     let [col, row] = position;
 
-    if (this.color === "white") {
+    if (this.color === 'white') {
       return `${col}${parseInt(row, 10) + 1}`;
     }
 
-    if (this.color === "black") {
+    if (this.color === 'black') {
       return `${col}${parseInt(row, 10) - 1}`;
     }
   }
@@ -38,11 +38,11 @@ export default class Piece {
   back(position) {
     let [col, row] = position;
 
-    if (this.color === "white") {
+    if (this.color === 'white') {
       return `${col}${parseInt(row, 10) - 1}`;
     }
 
-    if (this.color === "black") {
+    if (this.color === 'black') {
       return `${col}${parseInt(row, 10) + 1}`;
     }
   }
@@ -50,11 +50,11 @@ export default class Piece {
   right(position) {
     let [col, row] = position;
 
-    if (this.color === "white") {
+    if (this.color === 'white') {
       return `${String.fromCharCode(col.charCodeAt(0) - 1)}${row}`;
     }
 
-    if (this.color === "black") {
+    if (this.color === 'black') {
       return `${String.fromCharCode(col.charCodeAt(0) + 1)}${row}`;
     }
   }
@@ -62,11 +62,11 @@ export default class Piece {
   left(position) {
     let [col, row] = position;
 
-    if (this.color === "white") {
+    if (this.color === 'white') {
       return `${String.fromCharCode(col.charCodeAt(0) + 1)}${row}`;
     }
 
-    if (this.color === "black") {
+    if (this.color === 'black') {
       return `${String.fromCharCode(col.charCodeAt(0) - 1)}${row}`;
     }
   }

@@ -1,7 +1,7 @@
-import Piece from "ember-chess/lib/pieces/piece";
+import Piece from 'ember-chess/lib/pieces/piece';
 
 export default class Pawn extends Piece {
-  type = "pawn";
+  type = 'pawn';
 
   get availablePositions() {
     return [

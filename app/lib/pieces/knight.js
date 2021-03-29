@@ -1,7 +1,7 @@
-import Piece from "ember-chess/lib/pieces/piece";
+import Piece from 'ember-chess/lib/pieces/piece';
 
 export default class Knight extends Piece {
-  type = "knight";
+  type = 'knight';
 
   moves = [
     (position) => this.forward(this.forward(this.left(position))),
