@@ -1,13 +1,32 @@
-<button type="button" class="settings-button" {{on "click" this.toggle}}>
+<button
+  aria-label="toggle settings menu"
+  aria-controls="settings-panel"
+  type="button"
+  class="settings-button"
+  data-test="settings-button"
+  {{on "click" this.toggle}}
+>
   <Icon::Gear />
 </button>
 
-{{#if this.isShowing}}
-  <div class="settings-modal">
-    <label><input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}> Show key</label>
-    <label><input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}> Show move guide</label>
-    <label><input type="checkbox" checked={{@isShowingLog}} {{on "change" @toggleLog}}> Show game log</label>
-    <label><input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}> Rotate board every turn</label>
-    <button type="button" class="new-game" {{on "click" @resetGame}}> new game</button>
-  </div>
-{{/if}}
+<div id="settings-panel" aria-expanded={{if this.isShowing "true" "false"}}>
+  {{#if this.isShowing}}
+    <form class="settings-modal" action={{this.toggle}}>
+      <fieldset>
+        <legend class="sr-only">Game settings</legend>
+        <label title="displays grid coordinates (ex. a1, b2)"><input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}> Show key</label>
+        <label title="Highlights available spaces when a piece is selected"><input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}> Show move guide</label>
+        <label title="Current player is always at the bottom of the board"><input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}> Rotate board every turn</label>
+        <label title="coming soon"><input type="checkbox" checked={{@isShowingLog}} {{on "change" @toggleLog}} disabled> Show game log</label>
+
+        <button
+          type="button"
+          class="new-game"
+          {{on "click" @resetGame}}
+        >
+          new game
+        </button>
+      </fieldset>
+    </form>
+  {{/if}}
+</div>

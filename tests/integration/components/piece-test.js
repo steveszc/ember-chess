@@ -9,18 +9,36 @@ module('Integration | Component | piece', function(hooks) {
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
+    this.set('piece', {
+      type: 'pawn',
+      color: 'white'
+    });
+    this.set('noop', () => {});
+    this.set('isMyTurn', true);
+    this.set('canMoveHere', false);
 
-    await render(hbs`<Piece />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
     await render(hbs`
-      <Piece>
-        template block text
-      </Piece>
-    `);
+      <Piece
+        @piece={{this.piece}}
+        @select={{this.noop}}
+        @isMyTurn={{this.isMyTurn}}
+        @canMoveHere={{this.canMoveHere}}
+        @moveHere={{this.noop}}
+      />`);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('button').exists('renders a button');
+
+    assert.dom('svg[data-test="icon-pawn"]').exists('renders a pawn icon');
+
+    assert.dom('svg[data-test="icon-pawn"] path').exists({ count: 2}, 'white icon has 2 paths');
+
+    this.set('piece', {
+      type: 'queen',
+      color: 'black'
+    });
+
+    assert.dom('svg[data-test="icon-queen"]').exists('renders a queen icon');
+
+    assert.dom('svg[data-test="icon-queen"] path').exists({ count: 1 }, 'black icon has 1 path');
   });
 });

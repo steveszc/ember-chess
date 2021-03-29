@@ -11,6 +11,7 @@ export default class GameComponent extends Component {
   @tracked isShowingKey = false;
   @tracked isShowingLog = false;
   @tracked isRotate = false;
+  @tracked previousTurnInfo = null;
 
   get turnColor() {
     return this.turn % 2 ? "white" : "black";
@@ -20,8 +21,9 @@ export default class GameComponent extends Component {
     this.board = new Board();
   }
 
-  @action incrementTurn() {
+  @action incrementTurn(turn) {
     this.turn++;
+    this.previousTurnInfo = turn;
   }
   @action toggleGuide() {
     this.isShowingGuide = !this.isShowingGuide;

@@ -20,6 +20,11 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    'ember-cli-memory-leak-detector': {
+      error: true,
+      ignoreClasses: ['Piece'] //Piece seems to be leaking because it is a class prototype, and prototypes are never destroyed
     }
   };
 

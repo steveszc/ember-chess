@@ -1,5 +1,7 @@
 <div class="piece {{@piece.color}} {{if this.canBeTaken "can-be-taken"}} {{if this.isDragging "is-dragging"}}">
+  <div {{did-insert (set this "dragImage")}}></div>
   <button
+    aria-label="{{@piece.color}} {{@piece.type}}"
     type="button"
     disabled={{and (not @isMyTurn) (not this.canBeTaken)}}
     draggable={{@isMyTurn}}
@@ -8,24 +10,25 @@
     {{on "dragend" this.dragEnd}}
     {{on "drop" this.drop}}
     {{on "dragover" this.dragOver}}
+    data-test={{@piece.type}}
   >
     {{#if (eq @piece.type "pawn")}}
-      <Icon::Pawn @color={{@piece.color}} />
+      <Icon::Pawn @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "rook")}}
-      <Icon::Rook @color={{@piece.color}} />
+      <Icon::Rook @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "knight")}}
-      <Icon::Knight @color={{@piece.color}} />
+      <Icon::Knight @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "bishop")}}
-      <Icon::Bishop @color={{@piece.color}} />
+      <Icon::Bishop @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "queen")}}
-      <Icon::Queen @color={{@piece.color}} />
+      <Icon::Queen @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{else if (eq @piece.type "king")}}
-      <Icon::King @color={{@piece.color}} />
+      <Icon::King @color={{@piece.color}} {{did-insert this.createDragImage}} />
 
     {{/if}}
   </button>
