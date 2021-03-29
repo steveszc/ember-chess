@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'ember-chess',
     environment,
@@ -13,8 +13,8 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -24,8 +24,8 @@ module.exports = function(environment) {
 
     'ember-cli-memory-leak-detector': {
       error: true,
-      ignoreClasses: ['Piece'] //Piece seems to be leaking because it is a class prototype, and prototypes are never destroyed
-    }
+      ignoreClasses: ['Piece'], //Piece seems to be leaking because it is a class prototype, and prototypes are never destroyed
+    },
   };
 
   if (environment === 'development') {

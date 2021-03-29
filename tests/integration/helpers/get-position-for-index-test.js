@@ -3,11 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Helper | get-position-for-index', function(hooks) {
+module('Integration | Helper | get-position-for-index', function (hooks) {
   setupRenderingTest(hooks);
 
   // TODO: Replace this with your real tests.
-  test('it the positions based on 0-based indices', async function(assert) {
+  test('it the positions based on 0-based indices', async function (assert) {
     await render(hbs`{{get-position-for-index 0 0}}`);
     assert.equal(this.element.textContent.trim(), 'a1', 'a1');
 

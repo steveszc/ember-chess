@@ -1,4 +1,4 @@
-import { helper } from "@ember/component/helper";
+import { helper } from '@ember/component/helper';
 const indexToLetter = (number) => String.fromCharCode(97 + number);
 const indexToNumber = (number) => `${number + 1}`;
 
