@@ -151,10 +151,6 @@ th[scope="col"] {
 .piece button:focus {
   outline: none;
 }
-.piece button:focus svg,
-.piece.is-selected button svg {
-  color: cornflowerblue;
-}
 
 .piece svg {
   width: 100%;

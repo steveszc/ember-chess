@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^1.0.2",
     "@glimmer/component": "^1.0.1",
     "@glimmer/tracking": "^1.0.1",
     "babel-eslint": "^10.1.0",
@@ -40,6 +41,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.2",
+    "ember-set-helper": "^2.0.0",
     "ember-source": "~3.21.1",
     "ember-template-lint": "^2.11.0",
     "ember-truth-helpers": "^3.0.0",
