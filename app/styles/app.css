@@ -212,6 +212,16 @@ th[scope="col"] {
   color: #6b7280;
 }
 
+.fen-textarea {
+  margin-top: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #f9fafb;
+  color: #6b7280;
+  resize: vertical;
+  width: 97%;
+}
+
 .new-game {
   border: 1px solid #d1d5db;
   border-radius: 4px;
