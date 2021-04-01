@@ -2,27 +2,35 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import Board from 'ember-chess/lib/board';
+import Fen from 'ember-chess/lib/fen';
 
 export default class GameComponent extends Component {
   @tracked board = new Board();
 
   @tracked turn = 1;
+  @tracked turnColor = 'white';
   @tracked isShowingGuide = false;
   @tracked isShowingKey = false;
   @tracked isShowingLog = false;
   @tracked isRotate = false;
   @tracked previousTurnInfo = null;
-
-  get turnColor() {
-    return this.turn % 2 ? 'white' : 'black';
-  }
+  @tracked fen = null;
 
   @action resetGame() {
-    this.board = new Board();
+    let fen = new Fen(this.fen);
+    this.board = new Board(fen);
+    this.turn = fen.isValid ? fen.fullTurnCount : 1;
+    this.turnColor = fen.isValid ? fen.turnColor : 'white';
+    this.fen = null;
   }
 
   @action incrementTurn(turn) {
-    this.turn++;
+    if (this.turnColor === 'black') {
+      this.turn++;
+      this.turnColor = 'white';
+    } else {
+      this.turnColor = 'black';
+    }
     this.previousTurnInfo = turn;
   }
   @action toggleGuide() {
@@ -36,5 +44,8 @@ export default class GameComponent extends Component {
   }
   @action toggleRotate() {
     this.isRotate = !this.isRotate;
+  }
+  @action updateFen(event) {
+    this.fen = event.target.value;
   }
 }

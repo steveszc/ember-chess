@@ -14,8 +14,11 @@
   {{if this.isShowingKey "show-key"}}
   {{if this.isRotate "rotate"}}
   {{if this.isShowingGuide "show-guide"}}
-  {{if this.isShowingLog "show-log"}}
-">
+  {{if this.isShowingLog "show-log"}}"
+  data-test="game"
+  data-turn="{{this.turn}}"
+  data-turn-color="{{this.turnColor}}"
+>
   <Board
     @board={{this.board}}
     @turnColor={{this.turnColor}}
@@ -33,4 +36,6 @@
   @toggleGuide={{this.toggleGuide}}
   @isShowingLog={{this.isShowingLog}}
   @toggleLog={{this.toggleLog}}
+  @fen={{this.fen}}
+  @updateFen={{this.updateFen}}
 />

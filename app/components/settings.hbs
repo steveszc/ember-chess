@@ -14,17 +14,48 @@
     <form class="settings-modal" action={{this.toggle}}>
       <fieldset>
         <legend class="sr-only">Game settings</legend>
-        <label title="displays grid coordinates (ex. a1, b2)"><input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}> Show key</label>
-        <label title="Highlights available spaces when a piece is selected"><input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}> Show move guide</label>
-        <label title="Current player is always at the bottom of the board"><input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}> Rotate board every turn</label>
-        <label title="coming soon"><input type="checkbox" checked={{@isShowingLog}} {{on "change" @toggleLog}} disabled> Show game log</label>
+
+        <label title="displays grid coordinates (ex. a1, b2)">
+          <input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}>
+          Show key
+        </label>
+
+        <label title="Highlights available spaces when a piece is selected">
+          <input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}>
+          Show move guide
+        </label>
+
+        <label title="Current player is always at the bottom of the board">
+          <input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}>
+          Rotate board every turn
+        </label>
+
+        <label title="coming soon">
+          <input type="checkbox" checked={{@isShowingLog}} {{on "change" @toggleLog}} disabled>
+          Show game log
+        </label>
+
+        <textarea
+          aria-label="FEN code for new game (optional)"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          class="fen-textarea"
+          data-test="fen-textarea"
+          spellcheck="false"
+          placeholder="FEN for new game (optional)"
+          value={{@fen}}
+          {{on "input" @updateFen}}
+        >
+        </textarea>
 
         <button
           type="button"
           class="new-game"
+          data-test="new-game-button"
           {{on "click" @resetGame}}
         >
-          new game
+          start new game
         </button>
       </fieldset>
     </form>
