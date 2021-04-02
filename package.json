@@ -2,10 +2,13 @@
   "name": "ember-chess",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for ember-chess goes here",
-  "repository": "",
+  "description": "Two-player local chess on the web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steveszc/ember-chess.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "Steve Szczecina",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -51,6 +54,7 @@
     "ember-source": "~3.25.1",
     "ember-template-lint": "^2.18.1",
     "ember-truth-helpers": "^3.0.0",
+    "ember-web-app": "^5.0.1",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-ember": "^10.2.0",
