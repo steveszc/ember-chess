@@ -12,6 +12,9 @@ module.exports = function (defaults) {
         concat: true,
       },
     },
+    prember: {
+      urls: ['/'],
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
