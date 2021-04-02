@@ -10,6 +10,10 @@ body {
   padding: 0;
 }
 
+main {
+  height: 100%;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -28,24 +32,6 @@ body {
   align-items: center;
   justify-content: space-around;
   transition: background 0.75s ease-out;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.surface.turn-1 {
-  animation-name: fade-in;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
 }
 
 .surface.white {
@@ -141,6 +127,7 @@ th[scope="col"] {
   height: 90%;
   width: 90%;
   margin: 5%;
+  /* touch-action: none; */
   -webkit-user-drag: element;
 }
 

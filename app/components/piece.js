@@ -49,6 +49,10 @@ export default class PieceComponent extends Component {
     dragEvent.dataTransfer.dropEffect = 'move';
   }
 
+  @action dragEnter(dragEvent) {
+    dragEvent.preventDefault();
+  }
+
   @action drop(dragEvent) {
     dragEvent.preventDefault();
     if (this.canBeTaken) this.args.moveHere();

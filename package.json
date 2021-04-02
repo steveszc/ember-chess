@@ -21,7 +21,7 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
+    "start": "PREMBER=true ember serve",
     "test": "npm-run-all lint test:*",
     "test:ember": "ember test"
   },
@@ -59,6 +59,7 @@
     "ember-set-helper": "^2.0.0",
     "ember-source": "~3.25.1",
     "ember-template-lint": "^2.18.1",
+    "ember-test-selectors": "^5.0.0",
     "ember-truth-helpers": "^3.0.0",
     "ember-web-app": "^5.0.1",
     "eslint": "^7.20.0",
@@ -80,5 +81,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "mobile-drag-drop": "^2.3.0-rc.2"
   }
 }
