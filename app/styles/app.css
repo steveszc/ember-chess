@@ -10,6 +10,10 @@ body {
   padding: 0;
 }
 
+main {
+  height: 100%;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -123,6 +127,7 @@ th[scope="col"] {
   height: 90%;
   width: 90%;
   margin: 5%;
+  /* touch-action: none; */
   -webkit-user-drag: element;
 }
 

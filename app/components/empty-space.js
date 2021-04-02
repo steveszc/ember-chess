@@ -6,6 +6,9 @@ export default class EmptySpaceComponent extends Component {
     dragEvent.preventDefault();
     dragEvent.dataTransfer.dropEffect = 'move';
   }
+  @action dragEnter(dragEvent) {
+    dragEvent.preventDefault();
+  }
   @action drop(dragEvent) {
     dragEvent.preventDefault();
     this.args.moveHere();
