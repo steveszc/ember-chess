@@ -78,7 +78,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom('[data-test="game"]')
-        .hasAttribute('data-turn-color', 'white', 'It is now white turn');
+        .hasAttribute('data-test-turn-color', 'white', 'It is now white turn');
 
       await clickMove('a2', 'a3');
 
@@ -88,7 +88,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom('[data-test="game"]')
-        .hasAttribute('data-turn-color', 'black', 'It is now black turn');
+        .hasAttribute('data-test-turn-color', 'black', 'It is now black turn');
 
       await click('[data-test="settings-button"]');
       await click('[data-test="new-game-button"]');
@@ -99,7 +99,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom('[data-test="game"]')
-        .hasAttribute('data-turn-color', 'white', 'It is now white turn');
+        .hasAttribute('data-test-turn-color', 'white', 'It is now white turn');
     });
 
     test('Starting a new game with a FEN', async function (assert) {
@@ -122,11 +122,11 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom('[data-test="game"]')
-        .hasAttribute('data-turn', '2', 'It is now turn 2');
+        .hasAttribute('data-test-turn', '2', 'It is now turn 2');
 
       assert
         .dom('[data-test="game"]')
-        .hasAttribute('data-turn-color', 'black', 'It is now black turn');
+        .hasAttribute('data-test-turn-color', 'black', 'It is now black turn');
     });
   });
 });

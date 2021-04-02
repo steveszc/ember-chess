@@ -10,14 +10,13 @@
 <div class="
   surface
   {{this.turnColor}}
-  turn-{{this.turn}}
   {{if this.isShowingKey "show-key"}}
   {{if this.isRotate "rotate"}}
   {{if this.isShowingGuide "show-guide"}}
   {{if this.isShowingLog "show-log"}}"
   data-test="game"
-  data-turn="{{this.turn}}"
-  data-turn-color="{{this.turnColor}}"
+  data-test-turn="{{this.turn}}"
+  data-test-turn-color="{{this.turnColor}}"
 >
   <Board
     @board={{this.board}}
