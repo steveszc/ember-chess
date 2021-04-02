@@ -6,23 +6,15 @@
     <title>Chess</title>
     <meta name="description" content="Play chess online in the browser. Play two player chess on your tablet, laptop or smart phone. Chess built with ember.js">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     {{content-for "head"}}
-
     <link rel="manifest" href="{{rootURL}}manifest.webmanifest">
     <meta name="msapplication-config" content="{{rootURL}}browserconfig.xml">
-
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/ember-chess.css">
-
+    {{content-for 'concat-css'}}
     {{content-for "head-footer"}}
   </head>
   <body>
     {{content-for "body"}}
-
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/ember-chess.js"></script>
-
+    {{content-for 'concat-js'}}
     {{content-for "body-footer"}}
   </body>
 </html>
