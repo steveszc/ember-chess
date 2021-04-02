@@ -30,24 +30,6 @@ body {
   transition: background 0.75s ease-out;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.surface.turn-1 {
-  animation-name: fade-in;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-}
-
 .surface.white {
   background: rgba(0, 0, 0, 0);
 }
