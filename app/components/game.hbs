@@ -9,11 +9,12 @@
 
 <div class="
   surface
-  {{this.turnColor}}
   {{this.gameMode}}
   {{if this.isShowingKey "show-key"}}
   {{if this.isShowingGuide "show-guide"}}
-  {{if this.isShowingLog "show-log"}}"
+  {{if this.isShowingLog "show-log"}}
+  white"
+  {{delayed-class this.turnColor 600}}
   data-test="game"
   data-test-turn="{{this.turn}}"
   data-test-turn-color="{{this.turnColor}}"

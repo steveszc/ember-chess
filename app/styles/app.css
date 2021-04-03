@@ -48,11 +48,11 @@ main {
   transform: rotate(180deg);
 }
 
-.surface.tabletop,
+/* .surface.tabletop,
 .surface.tabletop.white .piece,
-.surface.pass-and-play .key {
+.surface.tabletop .key {
   transform: rotate(180deg);
-}
+} */
 
 .board {
   margin: 0 auto;

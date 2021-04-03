@@ -15,22 +15,23 @@
       <fieldset class="radio-group">
         <legend class="sr-only">Game mode</legend>
         <label title="Pieces rotate but board does not">
-        <input
-          type="radio"
-          name="game-mode"
-          checked={{eq @gameMode "tabletop"}}
-          {{on "change" (fn @setGameMode "tabletop")}}
-        >
+          <input
+            type="radio"
+            name="game-mode"
+            checked={{eq @gameMode "tabletop"}}
+            {{on "change" (fn @setGameMode "tabletop")}}
+          >
           Tabletop
         </label>
 
         <label title="Board rotates on screen">
-        <input
-          type="radio"
-          name="game-mode"
-          checked={{eq @gameMode "pass-and-play"}}
-          {{on "change" (fn @setGameMode "pass-and-play")}}
-        >
+          <input
+            type="radio"
+            name="game-mode"
+            checked={{eq @gameMode "pass-and-play"}}
+            data-test="pass-and-play"
+            {{on "change" (fn @setGameMode "pass-and-play")}}
+          >
           Pass and play
         </label>
       </fieldset>
