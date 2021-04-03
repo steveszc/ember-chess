@@ -12,7 +12,7 @@ export default class GameComponent extends Component {
   @tracked isShowingGuide = false;
   @tracked isShowingKey = false;
   @tracked isShowingLog = false;
-  @tracked isRotate = false;
+  @tracked gameMode = 'tabletop'; // tabletop | pass-and-play
   @tracked previousTurnInfo = null;
   @tracked fen = null;
 
@@ -42,8 +42,8 @@ export default class GameComponent extends Component {
   @action toggleLog() {
     this.isShowingLog = !this.isShowingLog;
   }
-  @action toggleRotate() {
-    this.isRotate = !this.isRotate;
+  @action setGameMode(mode) {
+    this.gameMode = mode;
   }
   @action updateFen(event) {
     this.fen = event.target.value;

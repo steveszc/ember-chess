@@ -42,9 +42,15 @@ main {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.surface.rotate.white,
-.surface.rotate.white .piece,
-.surface.rotate.white .key {
+.surface.pass-and-play.white,
+.surface.pass-and-play.white .piece,
+.surface.pass-and-play.white .key {
+  transform: rotate(180deg);
+}
+
+.surface.tabletop,
+.surface.tabletop.white .piece,
+.surface.pass-and-play .key {
   transform: rotate(180deg);
 }
 
@@ -217,4 +223,9 @@ th[scope="col"] {
   padding: 0.25rem 0.5rem;
   margin-top: 0.5rem;
   width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
 }

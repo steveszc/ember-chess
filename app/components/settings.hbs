@@ -11,7 +11,30 @@
 
 <div id="settings-panel" aria-expanded={{if this.isShowing "true" "false"}}>
   {{#if this.isShowing}}
-    <form class="settings-modal" action={{this.toggle}}>
+    <form class="settings-modal">
+      <fieldset class="radio-group">
+        <legend class="sr-only">Game mode</legend>
+        <label title="Pieces rotate but board does not">
+        <input
+          type="radio"
+          name="game-mode"
+          checked={{eq @gameMode "tabletop"}}
+          {{on "change" (fn @setGameMode "tabletop")}}
+        >
+          Tabletop
+        </label>
+
+        <label title="Board rotates on screen">
+        <input
+          type="radio"
+          name="game-mode"
+          checked={{eq @gameMode "pass-and-play"}}
+          {{on "change" (fn @setGameMode "pass-and-play")}}
+        >
+          Pass and play
+        </label>
+      </fieldset>
+
       <fieldset>
         <legend class="sr-only">Game settings</legend>
 
@@ -23,11 +46,6 @@
         <label title="Highlights available spaces when a piece is selected">
           <input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}>
           Show move guide
-        </label>
-
-        <label title="Current player is always at the bottom of the board">
-          <input type="checkbox" checked={{@isRotate}} {{on "change" @toggleRotate}}>
-          Rotate board every turn
         </label>
 
         <label title="coming soon">
@@ -48,16 +66,15 @@
           {{on "input" @updateFen}}
         >
         </textarea>
-
-        <button
-          type="button"
-          class="new-game"
-          data-test="new-game-button"
-          {{on "click" @resetGame}}
-        >
-          start new game
-        </button>
       </fieldset>
+
+      <button
+        type="button"
+        class="new-game"
+        data-test="new-game-button"
+      >
+        start new game
+      </button>
     </form>
   {{/if}}
 </div>

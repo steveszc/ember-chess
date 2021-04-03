@@ -25,6 +25,7 @@
                   @isMyTurn={{eq @turnColor piece.color}}
                   @canMoveHere={{includes this.selectedPiece.availablePositions position}}
                   @moveHere={{fn this.movePiece position}}
+                  @isFlipped={{and (eq @gameMode 'tabletop') (eq @turnColor 'black')}}
                 />
               {{else}}
                 <EmptySpace

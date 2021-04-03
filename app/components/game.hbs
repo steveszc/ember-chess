@@ -10,8 +10,8 @@
 <div class="
   surface
   {{this.turnColor}}
+  {{this.gameMode}}
   {{if this.isShowingKey "show-key"}}
-  {{if this.isRotate "rotate"}}
   {{if this.isShowingGuide "show-guide"}}
   {{if this.isShowingLog "show-log"}}"
   data-test="game"
@@ -22,6 +22,7 @@
     @board={{this.board}}
     @turnColor={{this.turnColor}}
     @incrementTurn={{this.incrementTurn}}
+    @gameMode={{this.gameMode}}
   />
 </div>
 
@@ -29,8 +30,8 @@
   @resetGame={{this.resetGame}}
   @isShowingKey={{this.isShowingKey}}
   @toggleKey={{this.toggleKey}}
-  @isRotate={{this.isRotate}}
-  @toggleRotate={{this.toggleRotate}}
+  @gameMode={{this.gameMode}}
+  @setGameMode={{this.setGameMode}}
   @isShowingGuide={{this.isShowingGuide}}
   @toggleGuide={{this.toggleGuide}}
   @isShowingLog={{this.isShowingLog}}
