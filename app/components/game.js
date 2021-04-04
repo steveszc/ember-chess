@@ -15,8 +15,10 @@ export default class GameComponent extends Component {
   @tracked gameMode = 'tabletop'; // tabletop | pass-and-play
   @tracked previousTurnInfo = null;
   @tracked fen = null;
+  @tracked didReset = false;
 
   @action resetGame() {
+    this.didReset = true;
     let fen = new Fen(this.fen);
     this.board = new Board(fen);
     this.turn = fen.isValid ? fen.fullTurnCount : 1;
@@ -25,6 +27,7 @@ export default class GameComponent extends Component {
   }
 
   @action incrementTurn(turn) {
+    this.didReset = false;
     if (this.turnColor === 'black') {
       this.turn++;
       this.turnColor = 'white';

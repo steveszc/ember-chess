@@ -14,7 +14,7 @@
   {{if this.isShowingGuide "show-guide"}}
   {{if this.isShowingLog "show-log"}}
   white"
-  {{delayed-class this.turnColor 600}}
+  {{delayed-class this.turnColor (if this.didReset 0 600)}}
   data-test="game"
   data-test-turn="{{this.turn}}"
   data-test-turn-color="{{this.turnColor}}"
