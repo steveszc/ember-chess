@@ -9,4 +9,9 @@ export default class SettingsComponent extends Component {
     e?.preventDefault();
     this.isShowing = !this.isShowing;
   }
+
+  @action startNewGame() {
+    this.args.resetGame();
+    this.toggle();
+  }
 }

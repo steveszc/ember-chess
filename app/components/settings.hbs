@@ -14,7 +14,7 @@
     <form class="settings-modal">
       <fieldset class="radio-group">
         <legend class="sr-only">Game mode</legend>
-        <label title="Pieces rotate but board does not">
+        <label title="Game board does not rotate">
           <input
             type="radio"
             name="game-mode"
@@ -24,7 +24,7 @@
           Tabletop
         </label>
 
-        <label title="Board rotates on screen">
+        <label title="Game board rotates after each turn">
           <input
             type="radio"
             name="game-mode"
@@ -39,14 +39,14 @@
       <fieldset>
         <legend class="sr-only">Game settings</legend>
 
-        <label title="displays grid coordinates (ex. a1, b2)">
+        <label title="displays grid coordinates in algebraic notation (ex. a1, b2)">
           <input type="checkbox" checked={{@isShowingKey}} {{on "change" @toggleKey}}>
-          Show key
+          Show coordinates
         </label>
 
         <label title="Highlights available spaces when a piece is selected">
           <input type="checkbox" checked={{@isShowingGuide}} {{on "change" @toggleGuide}}>
-          Show move guide
+          Show legal moves
         </label>
 
         <label title="coming soon">
@@ -73,7 +73,7 @@
         type="button"
         class="new-game"
         data-test="new-game-button"
-        {{on "click" @resetGame}}
+        {{on "click" this.startNewGame}}
       >
         start new game
       </button>
