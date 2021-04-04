@@ -1,36 +1,37 @@
-<div class="sr-only" role="alert" aria-live="polite">
-  {{#if this.previousTurnInfo}}
-    <p>
-      {{this.previousTurnInfo.color}} moved their {{this.previousTurnInfo.type}} from {{this.previousTurnInfo.from}} to {{this.previousTurnInfo.to}}.
-    </p>
-  {{/if}}
-  <p>{{this.turnColor}}'s turn.</p>
-</div>
+<Announcer
+  @turnColor={{this.turnColor}}
+  @previousTurnInfo={{this.previousTurnInfo}}
+/>
 
-<div class="
-  surface
-  {{this.turnColor}}
-  {{if this.isShowingKey "show-key"}}
-  {{if this.isRotate "rotate"}}
-  {{if this.isShowingGuide "show-guide"}}
-  {{if this.isShowingLog "show-log"}}"
-  data-test="game"
-  data-test-turn="{{this.turn}}"
-  data-test-turn-color="{{this.turnColor}}"
+<Surface
+  @gameMode={{this.gameMode}}
+  @isShowingKey={{this.isShowingKey}}
+  @isShowingGuide={{this.isShowingGuide}}
+  @turn={{this.turn}}
+  @turnColor={{this.turnColor}}
 >
   <Board
     @board={{this.board}}
     @turnColor={{this.turnColor}}
-    @incrementTurn={{this.incrementTurn}}
+    @incrementTurn={{perform this.incrementTurn}}
+    @gameMode={{this.gameMode}}
   />
-</div>
+  <Side
+    @color="white"
+    @capturedPieces={{this.board.whiteCapturedPieces}}
+  />
+  <Side
+    @color="black"
+    @capturedPieces={{this.board.blackCapturedPieces}}
+  />
+</Surface>
 
 <Settings
   @resetGame={{this.resetGame}}
   @isShowingKey={{this.isShowingKey}}
   @toggleKey={{this.toggleKey}}
-  @isRotate={{this.isRotate}}
-  @toggleRotate={{this.toggleRotate}}
+  @gameMode={{this.gameMode}}
+  @setGameMode={{this.setGameMode}}
   @isShowingGuide={{this.isShowingGuide}}
   @toggleGuide={{this.toggleGuide}}
   @isShowingLog={{this.isShowingLog}}

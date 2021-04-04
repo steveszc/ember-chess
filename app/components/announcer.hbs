@@ -1,0 +1,8 @@
+<div class="sr-only" role="alert" aria-live="polite">
+  {{#if @previousTurnInfo}}
+    <p>
+      {{@previousTurnInfo.color}} moved their {{@previousTurnInfo.type}} from {{@previousTurnInfo.from}} to {{@previousTurnInfo.to}}.
+    </p>
+  {{/if}}
+  <p>{{@turnColor}}'s turn.</p>
+</div>

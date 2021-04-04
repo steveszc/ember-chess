@@ -1,54 +1,58 @@
-<table class="board" data-test="board">
-  <caption class="sr-only">Chess board</caption>
-  <tbody>
-    <tr>
-      <td></td>
-      <th scope="col" class="key">a</th>
-      <th scope="col" class="key">b</th>
-      <th scope="col" class="key">c</th>
-      <th scope="col" class="key">d</th>
-      <th scope="col" class="key">e</th>
-      <th scope="col" class="key">f</th>
-      <th scope="col" class="key">g</th>
-      <th scope="col" class="key">h</th>
-    </tr>
-    {{#each @board.grid as |row i|}}
-      <tr class="row">
-        <th scope="row" class="key">{{add i 1}}</th>
-        {{#each row as |piece j|}}
-          {{#let (get-position-for-index i j) as |position|}}
-            <td class="space" data-test="{{position}}">
-              {{#if piece}}
-                <Piece
-                  @piece={{piece}}
-                  @select={{fn this.selectPiece piece}}
-                  @isMyTurn={{eq @turnColor piece.color}}
-                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
-                  @moveHere={{fn this.movePiece position}}
-                />
-              {{else}}
-                <EmptySpace
-                  @canMoveHere={{includes this.selectedPiece.availablePositions position}}
-                  @moveHere={{fn this.movePiece position}}
-                  data-test="empty-space"
-                />
-              {{/if}}
-            </td>
-          {{/let}}
-        {{/each}}
-        <th class="key">{{add i 1}}</th>
+<h2 class="sr-only">Game board</h2>
+<section class="board">
+  <table data-test="board">
+    <caption class="sr-only">Chess board</caption>
+    <tbody>
+      <tr>
+        <td></td>
+        <th scope="col" class="key">a</th>
+        <th scope="col" class="key">b</th>
+        <th scope="col" class="key">c</th>
+        <th scope="col" class="key">d</th>
+        <th scope="col" class="key">e</th>
+        <th scope="col" class="key">f</th>
+        <th scope="col" class="key">g</th>
+        <th scope="col" class="key">h</th>
       </tr>
-    {{/each}}
-    <tr>
-      <td></td>
-      <th class="key">a</th>
-      <th class="key">b</th>
-      <th class="key">c</th>
-      <th class="key">d</th>
-      <th class="key">e</th>
-      <th class="key">f</th>
-      <th class="key">g</th>
-      <th class="key">h</th>
-    </tr>
-  </tbody>
-</table>
+      {{#each @board.grid as |row i|}}
+        <tr class="row">
+          <th scope="row" class="key">{{sub 8 i}}</th>
+          {{#each row as |piece j|}}
+            {{#let (get-position-for-index i j) as |position|}}
+              <td class="space" data-test="{{position}}">
+                {{#if piece}}
+                  <Piece
+                    @piece={{piece}}
+                    @select={{fn this.selectPiece piece}}
+                    @isMyTurn={{eq @turnColor piece.color}}
+                    @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                    @moveHere={{fn this.movePiece position}}
+                    @isFlipped={{and (eq @gameMode 'tabletop') (eq @turnColor 'black')}}
+                  />
+                {{else}}
+                  <EmptySpace
+                    @canMoveHere={{includes this.selectedPiece.availablePositions position}}
+                    @moveHere={{fn this.movePiece position}}
+                    data-test="empty-space"
+                  />
+                {{/if}}
+              </td>
+            {{/let}}
+          {{/each}}
+          <th class="key">{{sub 8 i}}</th>
+        </tr>
+      {{/each}}
+      <tr>
+        <td></td>
+        <th class="key">a</th>
+        <th class="key">b</th>
+        <th class="key">c</th>
+        <th class="key">d</th>
+        <th class="key">e</th>
+        <th class="key">f</th>
+        <th class="key">g</th>
+        <th class="key">h</th>
+      </tr>
+    </tbody>
+  </table>
+</section>

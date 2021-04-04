@@ -1,6 +1,5 @@
 export default class Piece {
-  constructor({ position, color, board }) {
-    this.position = position;
+  constructor({ color, board }) {
     this.color = color;
     this.board = board;
   }
@@ -78,7 +77,7 @@ export default class Piece {
     do {
       let newPosition = move(position);
       let isOnBoard = this.board.isPositionOnBoard(newPosition);
-      let pieceAtPosition = this.board.pieceAtPosition(newPosition);
+      let pieceAtPosition = this.board.getPosition(newPosition);
 
       if (
         isOnBoard &&

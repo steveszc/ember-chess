@@ -25,7 +25,7 @@ class FenPiece {
     return types[this.#string.toLowerCase()];
   }
   get position() {
-    return `${String.fromCharCode(97 + this.#file)}${this.#rank + 1}`;
+    return `${String.fromCharCode(97 + this.#file)}${8 - this.#rank}`;
   }
 }
 
@@ -84,7 +84,7 @@ export default class Fen {
 
   get pieces() {
     let ranks = this.fen.split(' ')[0];
-    return ranks.split('/').reverse().map(this.rankToPieces).flat();
+    return ranks.split('/').map(this.rankToPieces).flat();
   }
 
   get turnColor() {

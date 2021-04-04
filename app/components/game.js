@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { task, timeout } from 'ember-concurrency';
 import Board from 'ember-chess/lib/board';
 import Fen from 'ember-chess/lib/fen';
 
@@ -12,7 +13,7 @@ export default class GameComponent extends Component {
   @tracked isShowingGuide = false;
   @tracked isShowingKey = false;
   @tracked isShowingLog = false;
-  @tracked isRotate = false;
+  @tracked gameMode = 'tabletop'; // tabletop | pass-and-play
   @tracked previousTurnInfo = null;
   @tracked fen = null;
 
@@ -24,7 +25,10 @@ export default class GameComponent extends Component {
     this.fen = null;
   }
 
-  @action incrementTurn(turn) {
+  @task
+  *incrementTurn(turn) {
+    yield timeout(500);
+
     if (this.turnColor === 'black') {
       this.turn++;
       this.turnColor = 'white';
@@ -33,18 +37,23 @@ export default class GameComponent extends Component {
     }
     this.previousTurnInfo = turn;
   }
+
   @action toggleGuide() {
     this.isShowingGuide = !this.isShowingGuide;
   }
+
   @action toggleKey() {
     this.isShowingKey = !this.isShowingKey;
   }
+
   @action toggleLog() {
     this.isShowingLog = !this.isShowingLog;
   }
-  @action toggleRotate() {
-    this.isRotate = !this.isRotate;
+
+  @action setGameMode(mode) {
+    this.gameMode = mode;
   }
+
   @action updateFen(event) {
     this.fen = event.target.value;
   }
