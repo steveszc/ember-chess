@@ -9,25 +9,20 @@
   @isShowingGuide={{this.isShowingGuide}}
   @turn={{this.turn}}
   @turnColor={{this.turnColor}}
-  @didReset={{this.didReset}}
 >
   <Board
     @board={{this.board}}
     @turnColor={{this.turnColor}}
-    @incrementTurn={{this.incrementTurn}}
+    @incrementTurn={{perform this.incrementTurn}}
     @gameMode={{this.gameMode}}
   />
   <Side
     @color="white"
     @capturedPieces={{this.board.whiteCapturedPieces}}
-    @turnColor={{this.turnColor}}
-    @gameMode={{this.gameMode}}
   />
   <Side
     @color="black"
     @capturedPieces={{this.board.blackCapturedPieces}}
-    @turnColor={{this.turnColor}}
-    @gameMode={{this.gameMode}}
   />
 </Surface>
 

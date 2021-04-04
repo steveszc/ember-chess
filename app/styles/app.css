@@ -49,13 +49,8 @@ main {
 }
 
 .surface.pass-and-play.black,
-.surface.pass-and-play.black .piece,
-.surface.pass-and-play.black .key {
-  transform: rotate(180deg);
-}
-
-.surface.tabletop.black .piece,
-.surface.tabletop.black .key {
+.surface.black .piece,
+.surface.black .key {
   transform: rotate(180deg);
 }
 
