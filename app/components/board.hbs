@@ -14,7 +14,7 @@
     </tr>
     {{#each @board.grid as |row i|}}
       <tr class="row">
-        <th scope="row" class="key">{{add i 1}}</th>
+        <th scope="row" class="key">{{sub 8 i}}</th>
         {{#each row as |piece j|}}
           {{#let (get-position-for-index i j) as |position|}}
             <td class="space" data-test="{{position}}">
@@ -37,7 +37,7 @@
             </td>
           {{/let}}
         {{/each}}
-        <th class="key">{{add i 1}}</th>
+        <th class="key">{{sub 8 i}}</th>
       </tr>
     {{/each}}
     <tr>

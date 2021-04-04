@@ -10,10 +10,8 @@ import {
 import Fen from 'ember-chess/lib/fen';
 
 const letterToIndex = (string) => string.charCodeAt(0) - 97;
-//const indexToLetter = (number) => String.fromCharCode(97 + number);
 
-const numberToIndex = (string) => parseInt(string, 10) - 1;
-//const indexToNumber = (number) => `${number + 1}`;
+const numberToIndex = (string) => 8 - parseInt(string, 10);
 
 const positionToCoord = (position) => ({
   row: numberToIndex(position[1]),

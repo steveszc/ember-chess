@@ -42,17 +42,16 @@ main {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.surface.pass-and-play.white,
-.surface.pass-and-play.white .piece,
-.surface.pass-and-play.white .key {
+.surface.pass-and-play.black,
+.surface.pass-and-play.black .piece,
+.surface.pass-and-play.black .key {
   transform: rotate(180deg);
 }
 
-/* .surface.tabletop,
-.surface.tabletop.white .piece,
-.surface.tabletop .key {
+.surface.tabletop.black .piece,
+.surface.tabletop.black .key {
   transform: rotate(180deg);
-} */
+}
 
 .board {
   margin: 0 auto;
@@ -133,7 +132,6 @@ th[scope="col"] {
   height: 90%;
   width: 90%;
   margin: 5%;
-  /* touch-action: none; */
   -webkit-user-drag: element;
 }
 
