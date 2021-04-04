@@ -1,23 +1,15 @@
-<div class="sr-only" role="alert" aria-live="polite">
-  {{#if this.previousTurnInfo}}
-    <p>
-      {{this.previousTurnInfo.color}} moved their {{this.previousTurnInfo.type}} from {{this.previousTurnInfo.from}} to {{this.previousTurnInfo.to}}.
-    </p>
-  {{/if}}
-  <p>{{this.turnColor}}'s turn.</p>
-</div>
+<Announcer
+  @turnColor={{this.turnColor}}
+  @previousTurnInfo={{this.previousTurnInfo}}
+/>
 
-<div class="
-  surface
-  {{this.gameMode}}
-  {{if this.isShowingKey "show-key"}}
-  {{if this.isShowingGuide "show-guide"}}
-  {{if this.isShowingLog "show-log"}}
-  white"
-  {{delayed-class this.turnColor (if this.didReset 0 600)}}
-  data-test="game"
-  data-test-turn="{{this.turn}}"
-  data-test-turn-color="{{this.turnColor}}"
+<Surface
+  @gameMode={{this.gameMode}}
+  @isShowingKey={{this.isShowingKey}}
+  @isShowingGuide={{this.isShowingGuide}}
+  @turn={{this.turn}}
+  @turnColor={{this.turnColor}}
+  @didReset={{this.didReset}}
 >
   <Board
     @board={{this.board}}
@@ -25,7 +17,19 @@
     @incrementTurn={{this.incrementTurn}}
     @gameMode={{this.gameMode}}
   />
-</div>
+  <Side
+    @color="white"
+    @capturedPieces={{this.board.whiteCapturedPieces}}
+    @turnColor={{this.turnColor}}
+    @gameMode={{this.gameMode}}
+  />
+  <Side
+    @color="black"
+    @capturedPieces={{this.board.blackCapturedPieces}}
+    @turnColor={{this.turnColor}}
+    @gameMode={{this.gameMode}}
+  />
+</Surface>
 
 <Settings
   @resetGame={{this.resetGame}}

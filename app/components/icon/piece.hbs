@@ -1,0 +1,19 @@
+{{#if (eq @type "pawn")}}
+  <Icon::Pawn @color={{@color}} ...attributes />
+
+{{else if (eq @type "rook")}}
+  <Icon::Rook @color={{@color}} ...attributes />
+
+{{else if (eq @type "knight")}}
+  <Icon::Knight @color={{@color}} ...attributes />
+
+{{else if (eq @type "bishop")}}
+  <Icon::Bishop @color={{@color}} ...attributes />
+
+{{else if (eq @type "queen")}}
+  <Icon::Queen @color={{@color}} ...attributes />
+
+{{else if (eq @type "king")}}
+  <Icon::King @color={{@color}} ...attributes />
+
+{{/if}}

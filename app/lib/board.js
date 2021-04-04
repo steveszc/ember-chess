@@ -32,8 +32,22 @@ export default class Board {
     t([_, _, _, _, _, _, _, _]),
   ]);
 
+  #capturedPieces = t([]);
+
   get grid() {
     return this.#grid;
+  }
+
+  get capturedPieces() {
+    return this.#capturedPieces;
+  }
+
+  get whiteCapturedPieces() {
+    return this.#capturedPieces.filter((piece) => piece.color === 'white');
+  }
+
+  get blackCapturedPieces() {
+    return this.#capturedPieces.filter((piece) => piece.color === 'black');
   }
 
   constructor(fen) {
@@ -48,7 +62,7 @@ export default class Board {
   }
 
   createPiece({ type, position, color }) {
-    let { row, col } = positionToCoord(position);
+    let board = this;
     let pieceClasses = {
       pawn: Pawn,
       rook: Rook,
@@ -59,16 +73,19 @@ export default class Board {
     };
     let Piece = pieceClasses[type];
 
-    this.#grid[row][col] = new Piece({ position, color, board: this });
+    this.setPosition(position, new Piece({ color, board }));
   }
 
   move(fromPosition, toPosition) {
-    let from = positionToCoord(fromPosition);
-    let to = positionToCoord(toPosition);
-    let piece = this.#grid[from.row][from.col];
-    this.#grid[from.row][from.col] = null;
-    this.#grid[to.row][to.col] = piece;
-    piece.position = toPosition;
+    let piece = this.getPosition(fromPosition);
+    let destinationPiece = this.getPosition(toPosition);
+
+    this.setPosition(fromPosition, _);
+    this.setPosition(toPosition, piece);
+
+    if (destinationPiece) {
+      this.#capturedPieces.push(destinationPiece);
+    }
   }
 
   isPositionOnBoard(position) {
@@ -76,10 +93,18 @@ export default class Board {
     return 'abcdefgh'.includes(col) && row >= 1 && row <= 8;
   }
 
-  pieceAtPosition(position) {
+  getPosition(position) {
     if (this.isPositionOnBoard(position)) {
       let { row, col } = positionToCoord(position);
       return this.#grid[row][col];
+    }
+  }
+
+  setPosition(position, piece) {
+    if (this.isPositionOnBoard(position)) {
+      let { row, col } = positionToCoord(position);
+      this.#grid[row][col] = piece;
+      if (piece) piece.position = position;
     }
   }
 }

@@ -1,0 +1,13 @@
+<div class="
+  surface
+  {{@gameMode}}
+  {{if @isShowingKey "show-key"}}
+  {{if @isShowingGuide "show-guide"}}
+  white"
+  {{delayed-class @turnColor (if @didReset 0 600)}}
+  data-test="game"
+  data-test-turn="{{@turn}}"
+  data-test-turn-color="{{@turnColor}}"
+>
+  {{yield}}
+</div>

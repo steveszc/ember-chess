@@ -74,9 +74,9 @@ export default class PieceComponent extends Component {
   @action dragEnd(dragEvent) {
     dragEvent.preventDefault();
     this.isDragging = false;
-    // while (this.dragImage.firstChild) {
-    //   this.dragImage.removeChild(this.dragImage.firstChild);
-    // }
+    while (this.dragImage.firstChild) {
+      this.dragImage.removeChild(this.dragImage.firstChild);
+    }
   }
 
   @action dragOver(dragEvent) {
