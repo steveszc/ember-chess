@@ -2,7 +2,7 @@
 <section class="side {{@color}}">
   <ul>
     {{#each @capturedPieces as |piece|}}
-      <li class="space piece {{piece.color}}">
+      <li class="space piece {{piece.color}}" data-test-captured-piece="{{piece.color}} {{piece.type}}">
         <Icon::Piece
           @type={{piece.type}}
           @color={{piece.color}}

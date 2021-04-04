@@ -26,7 +26,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('a2'))
-        .hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'a2 is a pawn');
 
       assert
         .dom(position('a3'))
@@ -40,7 +40,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('a3'))
-        .hasAttribute('data-test', 'pawn', 'a3 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
     });
   });
 
@@ -50,7 +50,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('a2'))
-        .hasAttribute('data-test', 'pawn', 'a2 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'a2 is a pawn');
 
       assert
         .dom(position('a3'))
@@ -64,7 +64,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('a3'))
-        .hasAttribute('data-test', 'pawn', 'a3 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
     });
   });
 
@@ -84,7 +84,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('a3'))
-        .hasAttribute('data-test', 'pawn', 'a3 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
 
       assert
         .dom('[data-test="game"]')
@@ -106,9 +106,7 @@ module('Acceptance | game', function (hooks) {
       const fen =
         'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2';
       await visit('');
-
       await click('[data-test="settings-button"]');
-
       await fillIn('[data-test="fen-textarea"]', fen);
       await click('[data-test="new-game-button"]');
 
@@ -118,7 +116,7 @@ module('Acceptance | game', function (hooks) {
 
       assert
         .dom(position('e4'))
-        .hasAttribute('data-test', 'pawn', 'e4 is a pawn');
+        .hasAttribute('data-test', 'white pawn', 'e4 is a pawn');
 
       assert
         .dom('[data-test="game"]')
@@ -127,6 +125,30 @@ module('Acceptance | game', function (hooks) {
       assert
         .dom('[data-test="game"]')
         .hasAttribute('data-test-turn-color', 'black', 'It is now black turn');
+    });
+  });
+
+  module('Capturing', function () {
+    test('Capturing ', async function (assert) {
+      await visit('');
+
+      await dragMove('e2', 'e4');
+      await dragMove('d7', 'd5');
+      await dragMove('e4', 'd5'); // white captures black pawn
+
+      assert
+        .dom(position('d5'))
+        .hasAttribute('data-test', 'white pawn', 'e5 is a white pawn');
+
+      assert
+        .dom('[data-test-captured-piece="black pawn"]')
+        .exists({ count: 1 }, 'captured black pawn is shown');
+
+      await clickMove('d8', 'd5'); // black captures white pawn
+
+      assert
+        .dom('[data-test-captured-piece="white pawn"]')
+        .exists({ count: 1 }, 'captured white pawn is shown');
     });
   });
 });
