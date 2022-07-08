@@ -36,14 +36,8 @@ export default class Fen {
 
   get isValid() {
     let segments = this.fen.split(' ');
-    let [
-      board,
-      turnColor,
-      castling,
-      enPassant,
-      halfCount,
-      fullCount,
-    ] = segments;
+    let [board, turnColor, castling, enPassant, halfCount, fullCount] =
+      segments;
     let ranks = board.split('/');
 
     let hasFenWith6SpaceDelimitedSegments = segments.length === 6;
