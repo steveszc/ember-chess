@@ -1,4 +1,4 @@
-import { tracked as t } from 'tracked-built-ins';
+import { tracked as t, TrackedArray } from 'tracked-built-ins';
 import {
   Pawn,
   Rook,
@@ -7,21 +7,34 @@ import {
   Queen,
   King,
 } from 'ember-chess/lib/pieces';
+import type { PieceInstance } from 'ember-chess/lib/pieces';
 import Fen from 'ember-chess/lib/fen';
+import { Position, Coord, Row, Col, Color } from 'ember-chess/lib/types';
 
-const letterToIndex = (string) => string.charCodeAt(0) - 97;
+const pieceClasses = {
+  pawn: Pawn,
+  rook: Rook,
+  knight: Knight,
+  bishop: Bishop,
+  queen: Queen,
+  king: King,
+} as const;
 
-const numberToIndex = (string) => 8 - parseInt(string, 10);
+type PieceType = keyof typeof pieceClasses;
 
-const positionToCoord = (position) => ({
-  row: numberToIndex(position[1]),
-  col: letterToIndex(position[0]),
+const letterToIndex = (string: string) => string.charCodeAt(0) - 97;
+
+const numberToIndex = (string: string) => 8 - parseInt(string, 10);
+
+const positionToCoord = (position: Position): Coord => ({
+  row: numberToIndex(position[1] as Row),
+  col: letterToIndex(position[0] as Col),
 });
 
 const _ = null;
 
 export default class Board {
-  #grid = t([
+  #grid: TrackedArray<TrackedArray<PieceInstance | typeof _>> = t([
     t([_, _, _, _, _, _, _, _]),
     t([_, _, _, _, _, _, _, _]),
     t([_, _, _, _, _, _, _, _]),
@@ -32,7 +45,7 @@ export default class Board {
     t([_, _, _, _, _, _, _, _]),
   ]);
 
-  #capturedPieces = t([]);
+  #capturedPieces: TrackedArray<PieceInstance> = t([]);
 
   get grid() {
     return this.#grid;
@@ -50,33 +63,25 @@ export default class Board {
     return this.#capturedPieces.filter((piece) => piece.color === 'black');
   }
 
-  constructor(fen) {
+  constructor(fen: Fen | undefined) {
     this.setupBoard(fen);
   }
 
-  setupBoard(fen) {
+  setupBoard(fen?: Fen) {
     if (!fen || !fen.isValid) {
       fen = new Fen();
     }
     fen.pieces.forEach((piece) => this.createPiece(piece));
   }
 
-  createPiece({ type, position, color }) {
+  createPiece({ type, position, color }: { type: PieceType, position: Position; color: Color; }) {
     let board = this;
-    let pieceClasses = {
-      pawn: Pawn,
-      rook: Rook,
-      knight: Knight,
-      bishop: Bishop,
-      queen: Queen,
-      king: King,
-    };
     let Piece = pieceClasses[type];
 
     this.setPosition(position, new Piece({ color, board }));
   }
 
-  move(fromPosition, toPosition) {
+  move(fromPosition: Position, toPosition: Position) {
     let piece = this.getPosition(fromPosition);
     let destinationPiece = this.getPosition(toPosition);
 
@@ -88,21 +93,31 @@ export default class Board {
     }
   }
 
-  isPositionOnBoard(position) {
-    let [col, row] = position;
-    return 'abcdefgh'.includes(col) && row >= 1 && row <= 8;
+  isPositionOnBoard(position: Position) {
+    let col = position[0] as Col;
+    let row = position[1] as Row;
+
+    let rowInt = parseInt(row, 10);
+
+    return 'abcdefgh'.includes(col) && rowInt >= 1 && rowInt <= 8;
   }
 
-  getPosition(position) {
+  getPosition(position: Position) {
     if (this.isPositionOnBoard(position)) {
       let { row, col } = positionToCoord(position);
-      return this.#grid[row][col];
+
+      let content = this?.grid?.[row]?.[col];
+
+      return content ?? null;
     }
+
+    return null;
   }
 
-  setPosition(position, piece) {
+  setPosition(position: Position, piece: PieceInstance | typeof _) {
     if (this.isPositionOnBoard(position)) {
       let { row, col } = positionToCoord(position);
+
       this.#grid[row][col] = piece;
       if (piece) piece.position = position;
     }

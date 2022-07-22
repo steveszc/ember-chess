@@ -6,3 +6,5 @@ import Queen from 'ember-chess/lib/pieces/queen';
 import King from 'ember-chess/lib/pieces/king';
 
 export { Pawn, Rook, Knight, Bishop, Queen, King };
+
+export type PieceInstance = Pawn | Rook | Knight | Bishop | Queen | King;
