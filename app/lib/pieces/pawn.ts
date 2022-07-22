@@ -1,18 +1,28 @@
 import Piece from 'ember-chess/lib/pieces/piece';
+import type { Position } from 'ember-chess/lib/types';
+
+function isPosition(p: Position | null): p is Position {
+  return typeof p === 'string';
+}
 
 export default class Pawn extends Piece {
   type = 'pawn';
 
+  // because the moves of pawns depend on the pawn's current board position
+  // we must evaluate each possible move given the current board state to see if it is valid,
+  // rather than evaluating the resulting position of each move as is done with other pieces
   get availablePositions() {
     return [
       this.moveForwardOne,
       this.moveForwardTwoOnFirstMove,
       this.takeDiagonallyLeft,
       this.takeDiagonallyRight,
-    ].filter(Boolean);
+    ].filter(isPosition);
   }
 
   get moveForwardOne() {
+    if (!this.position) return null;
+
     let newPosition = this.forward(this.position);
     let isOnBoard = this.board.isPositionOnBoard(newPosition);
     let pieceAtPosition = this.board.getPosition(newPosition);
@@ -25,6 +35,8 @@ export default class Pawn extends Piece {
   }
 
   get moveForwardTwoOnFirstMove() {
+    if (!this.position) return null;
+
     let newPosition = this.forward(this.forward(this.position));
     let isOnBoard = this.board.isPositionOnBoard(newPosition);
     let pieceInPosition = this.board.getPosition(newPosition);
@@ -37,6 +49,8 @@ export default class Pawn extends Piece {
   }
 
   get takeDiagonallyLeft() {
+    if (!this.position) return null;
+
     let newPosition = this.forward(this.left(this.position));
     let isOnBoard = this.board.isPositionOnBoard(newPosition);
     let pieceAtPosition = this.board.getPosition(newPosition);
@@ -49,6 +63,8 @@ export default class Pawn extends Piece {
   }
 
   get takeDiagonallyRight() {
+    if (!this.position) return null;
+
     let newPosition = this.forward(this.right(this.position));
     let isOnBoard = this.board.isPositionOnBoard(newPosition);
     let pieceAtPosition = this.board.getPosition(newPosition);
