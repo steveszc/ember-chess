@@ -18,7 +18,13 @@ interface SetHelperSignature {
   Return: () => void;
 }
 
+interface PageTitleHelperSignature {
+  Args: { Positional: [string]};
+  Return: void;
+}
+
 declare class MathHelper extends Helper<MathHelperSignature> {}
+declare class PageTitleHelper extends Helper<PageTitleHelperSignature>{}
 declare class SetHelper extends Helper<SetHelperSignature> {}
 
 declare module '@glint/environment-ember-loose/registry' {
@@ -26,6 +32,7 @@ declare module '@glint/environment-ember-loose/registry' {
     and: typeof AndHelper;
     eq: typeof EqHelper;
     not: typeof NotHelper;
+    'page-title': typeof PageTitleHelper;
     perform: typeof PerformHelper;
     set: typeof SetHelper;
     sub: typeof MathHelper;

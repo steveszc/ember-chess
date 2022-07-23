@@ -1,10 +1,11 @@
 import templateOnlyComponent from '@ember/component/template-only';
-import { Color } from 'ember-chess/lib/types';
+import { Color, PieceType } from 'ember-chess/lib/types';
 
 export interface IconPieceSignature {
   Element: SVGSVGElement;
   Args: {
     color: Color;
+    type: PieceType;
   };
   Blocks: {};
 }
