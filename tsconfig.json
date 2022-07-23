@@ -66,20 +66,13 @@
     // work with TypeScript.
     "baseUrl": ".",
     "paths": {
-      "ember-chess/tests/*": [
-        "tests/*"
-      ],
-      "ember-chess/*": [
-        "app/*"
-      ],
-      "*": [
-        "types/*"
-      ]
+      "ember-chess/tests/*": ["tests/*"],
+      "ember-chess/*": ["app/*"],
+      "*": ["types/*"]
     }
   },
-  "include": [
-    "app/**/*",
-    "tests/**/*",
-    "types/**/*"
-  ]
+  "glint": {
+    "environment": "ember-loose"
+  },
+  "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }
