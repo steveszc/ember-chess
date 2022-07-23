@@ -5,14 +5,18 @@ import { action } from '@ember/object';
 
 import type { Color, GameMode, Position, Turn, PieceInstance } from 'ember-chess/lib/types';
 
-interface Args {
-  board: Board;
-  turnColor: Color;
-  incrementTurn: (turn: Turn) => void;
-  gameMode: GameMode;
+export interface BoardSignature {
+  Element: HTMLElement;
+  Args: {
+    board: Board;
+    turnColor: Color;
+    incrementTurn: (turn: Turn) => void;
+    gameMode: GameMode;
+  };
+  Blocks: {};
 }
 
-export default class BoardComponent extends Component<Args> {
+export default class BoardComponent extends Component<BoardSignature> {
   @tracked selectedPiece?: PieceInstance;
 
   @action selectPiece(piece: PieceInstance) {
@@ -33,5 +37,11 @@ export default class BoardComponent extends Component<Args> {
     this.args.board.move(this.selectedPiece.position, toPosition);
     this.selectedPiece = undefined;
     this.args.incrementTurn(turn);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Board: typeof BoardComponent;
   }
 }
