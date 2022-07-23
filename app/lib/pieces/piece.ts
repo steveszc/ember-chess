@@ -36,7 +36,7 @@ export default abstract class Piece {
 
     let rowInt = parseInt(row, 10);
     let rowChange = this.color === 'white' ? 1 : -1;
-    let newRow = rowInt + rowChange;
+    let newRow = `${rowInt + rowChange}` as Row;
 
     return `${col}${newRow}`;
   }
@@ -47,7 +47,7 @@ export default abstract class Piece {
 
     let rowInt = parseInt(row, 10);
     let rowChange = this.color === 'white' ? -1 : 1;
-    let newRow = rowInt + rowChange;
+    let newRow = `${rowInt + rowChange}` as Row;
 
     return `${col}${newRow}`;
   }
@@ -58,7 +58,7 @@ export default abstract class Piece {
 
     let colInt = col.charCodeAt(0);
     let colChange = this.color === 'white' ? -1 : 1;
-    let newCol = String.fromCharCode(colInt + colChange);
+    let newCol = String.fromCharCode(colInt + colChange) as Col;
 
     return `${newCol}${row}`;
   }
@@ -69,7 +69,7 @@ export default abstract class Piece {
 
     let colInt = col.charCodeAt(0);
     let colChange = this.color === 'white' ? 1 : -1;
-    let newCol = String.fromCharCode(colInt + colChange);
+    let newCol = String.fromCharCode(colInt + colChange) as Col;
 
     return `${newCol}${row}`;
   }
