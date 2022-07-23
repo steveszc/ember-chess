@@ -99,7 +99,9 @@ export default class Board {
     if (this.isPositionOnBoard(position)) {
       let { row, col } = positionToCoord(position);
 
+      // @ts-expect-error object may be undefined???
       this.#grid[row][col] = piece;
+
       if (piece) piece.position = position;
     }
   }
