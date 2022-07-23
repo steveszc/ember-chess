@@ -4,12 +4,17 @@ import Fen from 'ember-chess/lib/fen';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
+import { perform } from 'ember-concurrency-ts';
 
 import { Color, GameMode, Turn } from 'ember-chess/lib/types';
 
-interface Args {}
+export interface GameSignature {
+  Element: undefined;
+  Args: {};
+  Blocks: {};
+}
 
-export default class GameComponent extends Component<Args> {
+export default class GameComponent extends Component<GameSignature> {
   @tracked board = new Board(new Fen());
 
   @tracked turn = 1;
@@ -19,18 +24,23 @@ export default class GameComponent extends Component<Args> {
   @tracked isShowingLog = false;
   @tracked gameMode: GameMode = 'tabletop';
   @tracked previousTurnInfo?: Turn;
-  @tracked fen?: string;
+  @tracked fen = '';
 
   @action resetGame() {
     let fen = new Fen(this.fen);
     this.board = new Board(fen);
     this.turn = fen.isValid ? fen.fullTurnCount : 1;
     this.turnColor = fen.isValid ? fen.turnColor : 'white';
-    this.fen = undefined;
+    this.fen = '';
+  }
+
+  @action
+  incrementTurn(turn: Turn) {
+    perform(this.incrementTurnTask, turn);
   }
 
   @task
-  *incrementTurn(turn: Turn) {
+  *incrementTurnTask(turn: Turn) {
     yield timeout(500);
 
     if (this.turnColor === 'black') {
@@ -63,5 +73,11 @@ export default class GameComponent extends Component<Args> {
     const { value } = target;
 
     this.fen = value;
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Game: typeof GameComponent;
   }
 }

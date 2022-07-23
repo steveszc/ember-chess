@@ -4,16 +4,20 @@ import { action } from '@ember/object';
 
 import type { PieceInstance } from 'ember-chess/lib/types';
 
-interface Args {
-  canMoveHere: boolean;
-  isFlipped: boolean;
-  isMyTurn: boolean;
-  piece: PieceInstance;
-  moveHere: () => void;
-  select: () => void;
+export interface PieceSignature {
+  Element: HTMLDivElement;
+  Args: {
+    canMoveHere: boolean;
+    isFlipped: boolean;
+    isMyTurn: boolean;
+    piece: PieceInstance;
+    moveHere: () => void;
+    select: () => void;
+  };
+  Blocks: {};
 }
 
-export default class PieceComponent extends Component<Args> {
+export default class PieceComponent extends Component<PieceSignature> {
   @tracked isDragging = false;
   @tracked isTouch = false;
   @tracked dragImage?: HTMLElement; // set from template did-insert
@@ -108,5 +112,11 @@ export default class PieceComponent extends Component<Args> {
   @action drop(dragEvent: DragEvent) {
     dragEvent.preventDefault();
     if (this.canBeTaken) this.args.moveHere();
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Piece: typeof PieceComponent;
   }
 }
