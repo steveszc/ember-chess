@@ -1,4 +1,4 @@
-import type { PieceInstance } from 'ember-chess/lib/pieces';
+import type { PieceType } from 'ember-chess/lib/pieces';
 
 export type Color = 'white' | 'black';
 export type Col = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'h' | 'g';
@@ -9,8 +9,13 @@ export type Coord = {
   row: number;
   col: number;
 }
+export type GameMode = 'pass-and-play' | 'tabletop';
 
-export interface Board {
-  isPositionOnBoard: (position: Position) => boolean;
-  getPosition: (position: Position) => PieceInstance | null;
-}
+export type Turn = {
+  color: Color;
+  type: PieceType;
+  from: Position;
+  to: Position;
+};
+
+export type { PieceType, PieceKey, PieceInstance } from 'ember-chess/lib/pieces';

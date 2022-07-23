@@ -1,4 +1,5 @@
 import Piece from 'ember-chess/lib/pieces/piece';
+import { pieces } from 'ember-chess/lib/pieces';
 import type { Position } from 'ember-chess/lib/types';
 
 function isPosition(p: Position | null): p is Position {
@@ -6,7 +7,7 @@ function isPosition(p: Position | null): p is Position {
 }
 
 export default class Pawn extends Piece {
-  type = 'pawn';
+  type = pieces.p;
 
   // because the moves of pawns depend on the pawn's current board position
   // we must evaluate each possible move given the current board state to see if it is valid,
