@@ -1,8 +1,9 @@
 import Piece from 'ember-chess/lib/pieces/piece';
+import { pieces } from 'ember-chess/lib/pieces';
 import type { Position } from 'ember-chess/lib/types';
 
 export default class Rook extends Piece {
-  type = 'rook';
+  type = pieces.r;
   hasRecursiveMoves = true;
 
   moves = [

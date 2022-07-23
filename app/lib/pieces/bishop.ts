@@ -1,8 +1,9 @@
 import Piece from 'ember-chess/lib/pieces/piece';
+import { pieces } from 'ember-chess/lib/pieces';
 import type { Position } from 'ember-chess/lib/types';
 
 export default class Bishop extends Piece {
-  type = 'bishop';
+  type = pieces.b;
   hasRecursiveMoves = true;
 
   moves = [

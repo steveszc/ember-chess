@@ -1,29 +1,10 @@
 import { tracked as t, TrackedArray } from 'tracked-built-ins';
-import {
-  Pawn,
-  Rook,
-  Knight,
-  Bishop,
-  Queen,
-  King,
-} from 'ember-chess/lib/pieces';
-import type { PieceInstance } from 'ember-chess/lib/pieces';
+import { pieceClasses } from 'ember-chess/lib/pieces';
 import Fen from 'ember-chess/lib/fen';
-import { Position, Coord, Row, Col, Color } from 'ember-chess/lib/types';
 
-const pieceClasses = {
-  pawn: Pawn,
-  rook: Rook,
-  knight: Knight,
-  bishop: Bishop,
-  queen: Queen,
-  king: King,
-} as const;
-
-type PieceType = keyof typeof pieceClasses;
+import type { Position, Coord, Row, Col, Color, PieceType, PieceInstance } from 'ember-chess/lib/types';
 
 const letterToIndex = (string: string) => string.charCodeAt(0) - 97;
-
 const numberToIndex = (string: string) => 8 - parseInt(string, 10);
 
 const positionToCoord = (position: Position): Coord => ({
@@ -34,6 +15,10 @@ const positionToCoord = (position: Position): Coord => ({
 const _ = null;
 
 export default class Board {
+  constructor(fen: Fen | undefined) {
+    this.setupBoard(fen);
+  }
+
   #grid: TrackedArray<TrackedArray<PieceInstance | typeof _>> = t([
     t([_, _, _, _, _, _, _, _]),
     t([_, _, _, _, _, _, _, _]),
@@ -61,10 +46,6 @@ export default class Board {
 
   get blackCapturedPieces() {
     return this.#capturedPieces.filter((piece) => piece.color === 'black');
-  }
-
-  constructor(fen: Fen | undefined) {
-    this.setupBoard(fen);
   }
 
   setupBoard(fen?: Fen) {

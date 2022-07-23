@@ -1,17 +1,9 @@
 // https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 const STARTING_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-import type { Color, Col, Row, Position } from 'ember-chess/lib/types';
+import type { Color, Col, Row, Position, PieceKey } from 'ember-chess/lib/types';
 
-const pieces = {
-  p: 'pawn',
-  r: 'rook',
-  n: 'knight',
-  b: 'bishop',
-  q: 'queen',
-  k: 'king',
-} as const;
+import { pieces } from 'ember-chess/lib/pieces';
 
-type PieceKey = keyof typeof pieces;
 type FenPieceString = PieceKey | Uppercase<PieceKey>;
 
 class FenPiece {

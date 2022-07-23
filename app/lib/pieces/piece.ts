@@ -1,10 +1,13 @@
-import type { Board, Color, Col, Row, Position, Move } from 'ember-chess/lib/types';
+import type { Color, Col, Row, Position, Move, PieceType } from 'ember-chess/lib/types';
+import type Board from 'ember-chess/lib/board';
 
-export default class Piece {
+export default abstract class Piece {
   constructor({ color, board }: { color: Color; board: Board; }) {
     this.color = color;
     this.board = board;
   }
+
+  abstract type: PieceType;
 
   color: Color;
   protected board: Board;

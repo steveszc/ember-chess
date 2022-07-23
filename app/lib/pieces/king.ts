@@ -1,8 +1,9 @@
 import Piece from 'ember-chess/lib/pieces/piece';
+import { pieces } from 'ember-chess/lib/pieces';
 import type { Position } from 'ember-chess/lib/types';
 
 export default class King extends Piece {
-  type = 'king';
+  type = pieces.k;
 
   moves = [
     (position: Position) => this.forward(position),
