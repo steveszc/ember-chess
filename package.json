@@ -23,7 +23,9 @@
     "lint:js:fix": "eslint . --fix",
     "start": "PREMBER=true ember serve",
     "test": "npm-run-all lint test:*",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "types": "npx glint",
+    "glint": "npx glint --watch"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
