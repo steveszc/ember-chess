@@ -1,10 +1,11 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { GameMode } from 'ember-chess/lib/types';
 
 interface Args {
   fen: string;
-  gameMode: 'pass-and-play' | 'tabletop';
+  gameMode: GameMode;
   isShowingKey: boolean;
   isShowingGuide: boolean;
   isShowingLog: boolean;
