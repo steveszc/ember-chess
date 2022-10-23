@@ -64,6 +64,9 @@ export default class Board {
 
   move(fromPosition: Position, toPosition: Position) {
     let piece = this.getPosition(fromPosition);
+
+    if (!piece) return;
+
     let destinationPiece = this.getPosition(toPosition);
 
     this.setPosition(fromPosition, _);
@@ -72,6 +75,17 @@ export default class Board {
     if (destinationPiece) {
       this.#capturedPieces.push(destinationPiece);
     }
+
+    if (this.isPawnPromotion(piece, toPosition)) {
+      this.createPiece({ type: 'queen', position: toPosition, color: piece.color });
+    }
+  }
+
+  isPawnPromotion(piece: PieceInstance, position: Position) {
+    if (piece?.type === 'pawn' && piece?.color === 'black' && position.endsWith('1')) return true;
+    if (piece?.type === 'pawn' && piece?.color === 'white' && position.endsWith('8')) return true;
+
+    return false;
   }
 
   isPositionOnBoard(position: Position) {
