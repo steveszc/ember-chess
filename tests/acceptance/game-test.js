@@ -20,135 +20,124 @@ module('Acceptance | game', function (hooks) {
     await triggerEvent(position(to), 'drop', { dataTransfer: {} });
   };
 
+  const startNewGame = async (fen) => {
+    await click('[data-test="settings-button"]');
+    if (fen) await fillIn('[data-test="fen-textarea"]', fen);
+    await click('[data-test="new-game-button"]');
+  };
+
+  const assertPosition = (assert, coord, piece) =>
+    assert
+      .dom(position(coord))
+      .hasAttribute('data-test', piece, `${coord} is a ${piece}`);
+
+  const assertTurnColor = (assert, turnColor) =>
+    assert
+      .dom('[data-test="game"]')
+      .hasAttribute(
+        'data-test-turn-color',
+        turnColor,
+        `It is now ${turnColor} turn`
+      );
+
+  const assertTurnNumber = (assert, turnNumber) =>
+    assert
+      .dom('[data-test="game"]')
+      .hasAttribute(
+        'data-test-turn',
+        `${turnNumber}`,
+        `It is now turn ${turnNumber}`
+      );
+
+  const assertCaptured = (assert, piece, count = 1) =>
+    assert
+      .dom(`[data-test-captured-piece="${piece}"]`)
+      .exists({ count }, `captured ${piece} is shown`);
+
   module('with a mouse', function () {
     test('Moving a pawn by clicking an open space', async function (assert) {
+      assert.expect(4);
+
       await visit('');
 
-      assert
-        .dom(position('a2'))
-        .hasAttribute('data-test', 'white pawn', 'a2 is a pawn');
-
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'empty-space', 'a3 is empty');
+      assertPosition(assert, 'a2', 'white pawn');
+      assertPosition(assert, 'a3', 'empty-space');
 
       await clickMove('a2', 'a3');
 
-      assert
-        .dom(position('a2'))
-        .hasAttribute('data-test', 'empty-space', 'a2 is empty');
-
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
+      assertPosition(assert, 'a2', 'empty-space');
+      assertPosition(assert, 'a3', 'white pawn');
     });
   });
 
   module('with a drag-n-drop', function () {
     test('Moving a pawn by dragging to an open space', async function (assert) {
+      assert.expect(4);
+
       await visit('');
 
-      assert
-        .dom(position('a2'))
-        .hasAttribute('data-test', 'white pawn', 'a2 is a pawn');
-
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'empty-space', 'a3 is empty');
+      assertPosition(assert, 'a2', 'white pawn');
+      assertPosition(assert, 'a3', 'empty-space');
 
       await dragMove('a2', 'a3');
 
-      assert
-        .dom(position('a2'))
-        .hasAttribute('data-test', 'empty-space', 'a2 is empty');
-
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
+      assertPosition(assert, 'a2', 'empty-space');
+      assertPosition(assert, 'a3', 'white pawn');
     });
   });
 
   module('New Game', function () {
     test('Starting a new game', async function (assert) {
+      assert.expect(6);
+
       await visit('');
 
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'empty-space', 'a3 is empty');
-
-      assert
-        .dom('[data-test="game"]')
-        .hasAttribute('data-test-turn-color', 'white', 'It is now white turn');
+      assertPosition(assert, 'a3', 'empty-space');
+      assertTurnColor(assert, 'white');
 
       await clickMove('a2', 'a3');
 
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'white pawn', 'a3 is a pawn');
+      assertPosition(assert, 'a3', 'white pawn');
+      assertTurnColor(assert, 'black');
 
-      assert
-        .dom('[data-test="game"]')
-        .hasAttribute('data-test-turn-color', 'black', 'It is now black turn');
+      await startNewGame();
 
-      await click('[data-test="settings-button"]');
-      await click('[data-test="new-game-button"]');
-
-      assert
-        .dom(position('a3'))
-        .hasAttribute('data-test', 'empty-space', 'a3 is empty');
-
-      assert
-        .dom('[data-test="game"]')
-        .hasAttribute('data-test-turn-color', 'white', 'It is now white turn');
+      assertPosition(assert, 'a3', 'empty-space');
+      assertTurnColor(assert, 'white');
     });
 
     test('Starting a new game with a FEN', async function (assert) {
-      const fen =
-        'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2';
+      assert.expect(4);
+
       await visit('');
-      await click('[data-test="settings-button"]');
-      await fillIn('[data-test="fen-textarea"]', fen);
-      await click('[data-test="new-game-button"]');
 
-      assert
-        .dom(position('e2'))
-        .hasAttribute('data-test', 'empty-space', 'e2 is empty');
+      await startNewGame(
+        'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2'
+      );
 
-      assert
-        .dom(position('e4'))
-        .hasAttribute('data-test', 'white pawn', 'e4 is a pawn');
-
-      assert
-        .dom('[data-test="game"]')
-        .hasAttribute('data-test-turn', '2', 'It is now turn 2');
-
-      assert
-        .dom('[data-test="game"]')
-        .hasAttribute('data-test-turn-color', 'black', 'It is now black turn');
+      assertPosition(assert, 'e2', 'empty-space');
+      assertPosition(assert, 'e4', 'white pawn');
+      assertTurnNumber(assert, 2);
+      assertTurnColor(assert, 'black');
     });
   });
 
   module('Capturing', function () {
     test('Capturing ', async function (assert) {
+      assert.expect(3);
+
       await visit('');
 
       await dragMove('e2', 'e4');
       await dragMove('d7', 'd5');
       await dragMove('e4', 'd5'); // white captures black pawn
 
-      assert
-        .dom(position('d5'))
-        .hasAttribute('data-test', 'white pawn', 'e5 is a white pawn');
-
-      assert
-        .dom('[data-test-captured-piece="black pawn"]')
-        .exists({ count: 1 }, 'captured black pawn is shown');
+      assertPosition(assert, 'd5', 'white pawn');
+      assertCaptured(assert, 'black pawn');
 
       await clickMove('d8', 'd5'); // black captures white pawn
 
-      assert
-        .dom('[data-test-captured-piece="white pawn"]')
-        .exists({ count: 1 }, 'captured white pawn is shown');
+      assertCaptured(assert, 'white pawn');
     });
   });
 });
