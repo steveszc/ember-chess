@@ -140,4 +140,22 @@ module('Acceptance | game', function (hooks) {
       assertCaptured(assert, 'white pawn');
     });
   });
+
+  module('Pawn promotion', function () {
+    test('White pawn can be promoted to Queen', async function (assert) {
+      assert.expect(4);
+
+      await visit('');
+
+      await startNewGame('8/P7/8/8/8/8/8/8 w - - 0 1');
+
+      assertPosition(assert, 'a7', 'white pawn');
+      assertPosition(assert, 'a8', 'empty-space');
+
+      await clickMove('a7', 'a8');
+
+      assertPosition(assert, 'a7', 'empty-space');
+      assertPosition(assert, 'a8', 'white queen');
+    });
+  });
 });
